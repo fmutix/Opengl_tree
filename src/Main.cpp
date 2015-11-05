@@ -17,8 +17,7 @@ glm::mat4 model(1);
 Camera camera(
     glm::vec3(0.0f, 0.0f, 2.0f), // position
     glm::vec3(0.0f, 1.0f, 0.0f), // up
-    glm::vec3(0.0f, 0.0f, -1.0f), // forward
-    model
+    glm::vec3(0.0f, 0.0f, -1.0f) // forward
 );
 
 Phong phong(
@@ -38,7 +37,7 @@ Screen screen(
     6000  // zFar
 );
 
-Scene scene(camera, phong, lightColor, appleColor);
+Scene scene(phong, lightColor, appleColor);
 
 int button_pressed = 0; // 1 if a button is currently being pressed.
 int GLUTmouse[2] = { 0, 0 };

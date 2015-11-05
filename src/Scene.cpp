@@ -2,9 +2,9 @@
 
 #include "Scene.hpp"
 
-Scene::Scene(Camera& camera, Phong& phong,
+Scene::Scene(Phong& phong,
     glm::vec3& lightColor, glm::vec3& objectColor) : 
-    camera(camera), phong(phong), lightColor(lightColor),
+    phong(phong), lightColor(lightColor),
     objectColor(objectColor) {}
 
 void Scene::uniform(Shader& shader) {

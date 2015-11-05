@@ -9,7 +9,7 @@ class Camera {
 public:
     Camera(
         const glm::vec3& position, const glm::vec3& up,
-        const glm::vec3& forward, glm::mat4& model
+        const glm::vec3& forward
     );
 
     glm::vec3 rotate(float vx, float vy);
@@ -37,8 +37,6 @@ private:
     glm::vec3 initForward;
     
     glm::vec3 right;
-    
-    glm::mat4& model;
 };
 
 #endif // OBJECT3D_HPP

@@ -4,8 +4,7 @@
     
 Camera::Camera(
     const glm::vec3& position, const glm::vec3& up,
-    const glm::vec3& forward, glm::mat4& model
-) : model(model) {
+    const glm::vec3& forward) {
     this->position = position;
     this->up = up;
     this->forward = forward;

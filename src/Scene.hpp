@@ -5,14 +5,13 @@
 #include <glm/vec3.hpp>
 
 #include "Shader.hpp"
-#include "Camera.hpp"
 #include "Phong.hpp"
 #include "Object3D.hpp"
 
 class Scene {
 public:
 
-    Scene(Camera& camera, Phong& phong,
+    Scene(Phong& phong,
     glm::vec3& lightColor, glm::vec3& objectColor);
 
     void uniform(Shader& shader);
@@ -22,7 +21,6 @@ public:
     void display();
 
 private:
-    Camera& camera;
     Phong& phong;
     glm::vec3& lightColor;
     glm::vec3& objectColor;
