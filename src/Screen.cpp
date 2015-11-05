@@ -24,5 +24,10 @@ void Screen::uniformProjectionMatrix(Shader& shader) {
 	shader.setUniform("projection", projectionMatrix);
 }
 
-int Screen::getWidth() { return width; }
-int Screen::getHeight() { return height; }
+int Screen::getWidth() {
+	return width;
+}
+
+int Screen::getHeight() {
+	return height;
+}

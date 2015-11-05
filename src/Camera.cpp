@@ -69,7 +69,18 @@ glm::mat4 Camera::getViewMatrix() {
 	);
 }
 
-glm::vec3 Camera::getPosition() { return position; }
-glm::vec3 Camera::getUp() { return up; }
-glm::vec3 Camera::getForward() { return forward; }
-glm::vec3 Camera::getRight() { return glm::normalize(glm::cross(forward, up)); }
+glm::vec3 Camera::getPosition() {
+	return position;
+}
+
+glm::vec3 Camera::getUp() {
+	return up;
+}
+
+glm::vec3 Camera::getForward() {
+	return forward;
+}
+
+glm::vec3 Camera::getRight() {
+	return glm::normalize(glm::cross(forward, up));
+}

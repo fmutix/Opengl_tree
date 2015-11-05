@@ -23,7 +23,9 @@ void Scene::rotatePhong(float vx, float vy, glm::vec3 axis) {
 	phong.rotate(vx, vy, axis);
 }
 
-void Scene::add(Object3D& obj) { objects.push_back(obj); }
+void Scene::add(Object3D& obj) {
+	objects.push_back(obj);
+}
 
 void Scene::display() {
 	for (Object3D obj : objects) {
