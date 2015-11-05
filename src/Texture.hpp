@@ -6,16 +6,16 @@
 
 class Texture {
 public:
-    Texture();
-    Texture(std::string name);
-    
-    GLuint getTexture();
+	Texture();
+	Texture(std::string name);
+
+	GLuint getTexture();
 
 private:
-    GLuint texture;
-    int width;
-    int height;
-    unsigned char* image;
+	GLuint texture;
+	int width;
+	int height;
+	unsigned char* image;
 };
 
 #endif // TEXTURE_HPP

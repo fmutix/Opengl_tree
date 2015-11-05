@@ -1,4 +1,4 @@
-#version 330 core
+	#version 330 core
 
 uniform mat4 projection;
 uniform mat4 view;
@@ -12,11 +12,11 @@ out vec3 fragPos;
 out vec3 objPos;
 
 void main() {
-    gl_Position = projection * view * model * vec4(position, 1.0f);
-    fragPos = vec3(model * vec4(position, 1.0f));
-    objPos = position;
+	gl_Position = projection * view * model * vec4(position, 1.0f);
+	fragPos = vec3(model * vec4(position, 1.0f));
+	objPos = position;
 
-    fragNormal = normalize(
-        mat3(transpose(inverse(model))) * normal
-    );
+	fragNormal = normalize(
+		mat3(transpose(inverse(model))) * normal
+	);
 }

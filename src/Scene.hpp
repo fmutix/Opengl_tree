@@ -11,21 +11,21 @@
 class Scene {
 public:
 
-    Scene();
+	Scene();
 
-    void uniform(Shader& shader);
-    void uniformPhong(Shader& shader);
-    
-    void rotatePhong(float vx, float vy, glm::vec3 axis);
+	void uniform(Shader& shader);
+	void uniformPhong(Shader& shader);
+	
+	void rotatePhong(float vx, float vy, glm::vec3 axis);
 
-    void add(Object3D& obj);
-    void display();
+	void add(Object3D& obj);
+	void display();
 
 private:
-    Phong phong;
-    glm::vec3 lightColor;
-    glm::vec3 objectColor;
-    std::vector<Object3D> objects;
+	Phong phong;
+	glm::vec3 lightColor;
+	glm::vec3 objectColor;
+	std::vector<Object3D> objects;
 };
 
 #endif // SCENE_HPP
