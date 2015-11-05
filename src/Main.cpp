@@ -20,15 +20,6 @@ Camera camera(
     glm::vec3(0.0f, 0.0f, -1.0f) // forward
 );
 
-Phong phong(
-    0.1f,
-    glm::vec3(1.0f, 2.0f, 3.0f),
-    2.0f
-);
-
-glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
-glm::vec3 appleColor = glm::vec3(1.0f, 0.2f, 0.2f);
-
 Screen screen(
     glm::radians(90.0f), // fovy
     600,  // width
@@ -37,7 +28,7 @@ Screen screen(
     6000  // zFar
 );
 
-Scene scene(phong, lightColor, appleColor);
+Scene scene;
 
 int button_pressed = 0; // 1 if a button is currently being pressed.
 int GLUTmouse[2] = { 0, 0 };
@@ -92,7 +83,7 @@ void mousedrag(int x, int y) {
     float vx = (float) dx / screen.getWidth();
     float vy = (float) dy / screen.getHeight();
     glm::vec3 axis = camera.rotate(vx, vy);
-    phong.rotate(vx, vy, axis);
+    scene.rotatePhong(vx, vy, axis);
     
     glutPostRedisplay();
 }
@@ -181,7 +172,7 @@ void reshape(int width, int height) {
  */
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
+
     shader.use();
     updateModelMatrix(shader);
     camera.uniformViewMatrix(shader);
@@ -266,8 +257,8 @@ void initLibraries(int argc, char* argv[]) {
 int main(int argc, char* argv[]) {
     initLibraries(argc, argv);
     initResources();
-    
+
     glutMainLoop();
-    
+
     return EXIT_SUCCESS;
 }
