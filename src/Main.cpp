@@ -219,9 +219,9 @@ void initResources() {
     normalShader.use();
     screen.uniformProjectionMatrix(normalShader);
 
-    Texture texture("resources/textures/wallHappy.jpg");
+    Texture texture("res/textures/wallHappy.jpg");
     Object3D obj1;
-    obj1.init("resources/obj/apple.obj");
+    obj1.init("res/obj/apple.obj");
     
     obj1.setTexture(texture);
 
