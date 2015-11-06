@@ -13,15 +13,16 @@
 #include "Texture.hpp"
 #include "Object3D.hpp"
 
-glm::mat4 model(1);
+glm::mat4 world(1.0f);
+
 Camera camera(
-	glm::vec3(0.0f, 0.0f, 2.0f), // position
+	glm::vec3(0.0f, 0.0f, 3.0f), // position
 	glm::vec3(0.0f, 1.0f, 0.0f), // up
 	glm::vec3(0.0f, 0.0f, -1.0f) // forward
 );
 
 Screen screen(
-	glm::radians(90.0f), // fovy
+	glm::radians(45.0f), // fovy
 	600,  // width
 	400,  // height
 	0.2f, // zNear
@@ -43,8 +44,8 @@ void updateRenderStyle(GLuint value) {
 	shader.setUniform("renderStyle", value);
 }
 
-void updateModelMatrix(Shader& shader) {
-	shader.setUniform("model", model);
+void updateWorldMatrix(Shader& shader) {
+	shader.setUniform("world", world);
 }
 
 void updateRenderStyle() {
@@ -112,22 +113,22 @@ void keyboard(unsigned char key, int, int) {
 		updateRenderStyle();
 		break;
 	case 'z':
-		model = glm::translate(model, glm::vec3(0.0f, 0.05f, 0.f));
+		world = glm::translate(world, glm::vec3(0.0f, 0.05f, 0.f));
 		break;
 	case 'd':
-		model = glm::translate(model, glm::vec3(0.05f, 0.f, 0.f));
+		world = glm::translate(world, glm::vec3(0.05f, 0.f, 0.f));
 		break;
 	case 'q':
-		model = glm::translate(model, glm::vec3(-0.05f, 0.f, 0.f));
+		world = glm::translate(world, glm::vec3(-0.05f, 0.f, 0.f));
 		break;
 	case 's':
-		model = glm::translate(model, glm::vec3(0.f, -0.05f, 0.f));
+		world = glm::translate(world, glm::vec3(0.f, -0.05f, 0.f));
 		break;
 	case 'p':
-		model = glm::rotate(model, 0.05f, glm::vec3(0.f, -0.05f, 0.f));
+		world = glm::rotate(world, 0.05f, glm::vec3(0.f, -0.05f, 0.f));
 		break;
 	case 'm':
-		model = glm::rotate(model, 0.05f, glm::vec3(0.05f, 0.f, 0.f));
+		world = glm::rotate(world, 0.05f, glm::vec3(0.05f, 0.f, 0.f));
 		break;
 	case 'r':
 		camera.reset();
@@ -174,15 +175,15 @@ void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	shader.use();
-	updateModelMatrix(shader);
+	updateWorldMatrix(shader);
 	camera.uniformViewMatrix(shader);
 	camera.uniformPosition(shader);
 	scene.uniform(shader);
-	scene.display();
+	scene.display(shader);
 
 	/*
 	normalShader.use();
-	updateModelMatrix(normalShader);
+	updateworldMatrix(normalShader);
 	camera.uniformViewMatrix(normalShader);
 	scene.display();
 	//*/
@@ -210,12 +211,15 @@ void initResources() {
 	screen.uniformProjectionMatrix(normalShader);
 
 	Texture texture("res/textures/wallHappy.jpg");
-	Object3D obj1;
-	obj1.init("res/obj/apple.obj");
-	
+	Object3D obj1("res/obj/apple.obj", glm::vec3(0.0f));
+//	Object3D obj2("res/obj/apple.obj", glm::mat4(1.0f));
+	Object3D obj2("res/obj/apple.obj", glm::vec3(1.0f, 0.0f, 0.0f));
+
 	obj1.setTexture(texture);
+	obj2.setTexture(texture);
 
 	scene.add(obj1);
+	scene.add(obj2);
 	
 	glClearColor(0.4, 0.4, 0.4, 0);
 }

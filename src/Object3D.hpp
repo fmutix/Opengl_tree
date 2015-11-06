@@ -11,12 +11,14 @@
 class Object3D {
 public:
 	Object3D();
-	Object3D(std::string filename);
+	Object3D(std::string filename, glm::vec3 position);
 
 	void init(std::string filename);
 
 	GLuint getTexture();
 	void setTexture(Texture& texture);
+	glm::vec3 getColor();
+	glm::vec3 getPosition();
 
 	void display();
 	unsigned int facesSize();
@@ -31,6 +33,8 @@ private:
 	std::vector<glm::vec3> normals_;
 	std::vector<GLuint> indices_;
 
+	glm::vec3 position_;
+	glm::vec3 color_;
 	Texture texture_;
 
 	void readMesh(std::string filename);

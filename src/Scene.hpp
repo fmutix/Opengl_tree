@@ -19,7 +19,7 @@ public:
 	void rotatePhong(float vx, float vy, glm::vec3 axis);
 
 	void add(Object3D& obj);
-	void display();
+	void display(Shader& shader);
 
 private:
 	Phong phong_;

@@ -7,7 +7,9 @@
 
 Object3D::Object3D() {}
 
-Object3D::Object3D(std::string filename) {
+Object3D::Object3D(std::string filename, glm::vec3 position) {
+	color_ = glm::vec3(1.0f, 0.2f, 0.2f);
+	position_ = position;
 	init(filename);
 }
 
@@ -152,6 +154,14 @@ GLuint Object3D::getTexture() {
 
 void Object3D::setTexture(Texture& texture) {
 	this->texture_ = texture;
+}
+
+glm::vec3 Object3D::getColor() {
+	return color_;
+}
+
+glm::vec3 Object3D::getPosition() {
+	return position_;
 }
 
 void Object3D::display() {
