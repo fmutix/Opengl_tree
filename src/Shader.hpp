@@ -28,10 +28,10 @@ public:
     void setUniform(const std::string& name, glm::mat4 value);
     
 private:
-    GLuint vertexShader;
-    GLuint fragmentShader;
-    GLuint geometryShader;
-    GLuint program;
+    GLuint vertexShader_;
+    GLuint fragmentShader_;
+    GLuint geometryShader_;
+    GLuint program_;
     
     GLuint addShader(GLenum type, std::string filename);
     std::string readShaderFile(std::string filename);

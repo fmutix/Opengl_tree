@@ -28,15 +28,15 @@ public:
 	glm::vec3 getRight();
 
 private:
-	glm::vec3 position;
-	glm::vec3 up;
-	glm::vec3 forward;
+	glm::vec3 position_;
+	glm::vec3 up_;
+	glm::vec3 forward_;
 
-	glm::vec3 initPosition;
-	glm::vec3 initUp;
-	glm::vec3 initForward;
+	glm::vec3 initPosition_;
+	glm::vec3 initUp_;
+	glm::vec3 initForward_;
 
-	glm::vec3 right;
+	glm::vec3 right_;
 };
 
 #endif // OBJECT3D_HPP

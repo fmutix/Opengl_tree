@@ -5,20 +5,20 @@
 Camera::Camera(
 	const glm::vec3& position, const glm::vec3& up,
 	const glm::vec3& forward) {
-	this->position = position;
-	this->up = up;
-	this->forward = forward;
+	this->position_ = position;
+	this->up_ = up;
+	this->forward_ = forward;
 
-	initPosition = position;
-	initUp = up;
-	initForward = forward;
+	initPosition_ = position;
+	initUp_ = up;
+	initForward_ = forward;
 }
 
 glm::vec3 Camera::rotate(float vx, float vy) {
 	float angle = 4.0f * (fabs(vx) + fabs(vy));
 	glm::vec3 directionToMoveIn = (-getRight() * vx) +
-								  (-up * vy);
-	glm::vec3 rotationAxis = glm::cross(directionToMoveIn, forward);
+								  (-up_ * vy);
+	glm::vec3 rotationAxis = glm::cross(directionToMoveIn, forward_);
 
 	rotate(angle, rotationAxis);
 
@@ -26,26 +26,26 @@ glm::vec3 Camera::rotate(float vx, float vy) {
 }
 
 void Camera::rotate(float angle, glm::vec3 rotationAxis) {
-	position = glm::rotate(position, angle, rotationAxis);
-	up = glm::normalize(glm::rotate(up, angle, rotationAxis));
-	forward = glm::normalize(glm::rotate(forward, angle, rotationAxis));
+	position_ = glm::rotate(position_, angle, rotationAxis);
+	up_ = glm::normalize(glm::rotate(up_, angle, rotationAxis));
+	forward_ = glm::normalize(glm::rotate(forward_, angle, rotationAxis));
 }
 
 void Camera::moveForwardBackward(float value) {
-	position += forward * value;
+	position_ += forward_ * value;
 }
 
 void Camera::moveLeftRight(float value) {
-	forward = glm::normalize(glm::rotate(forward, value, up));
+	forward_ = glm::normalize(glm::rotate(forward_, value, up_));
 }
 
 /**
  * Resets the camera's vectors to the values they were initialized to.
  */
 void Camera::reset() {
-	position = initPosition;
-	up = initUp;
-	forward = initForward;
+	position_ = initPosition_;
+	up_ = initUp_;
+	forward_ = initForward_;
 }
 
 /**
@@ -58,29 +58,29 @@ void Camera::uniformViewMatrix(Shader& shader) {
 }
 
 void Camera::uniformPosition(Shader& shader) {
-	shader.setUniform("cameraPos", position);
+	shader.setUniform("cameraPos", position_);
 }
 
 glm::mat4 Camera::getViewMatrix() {
 	return glm::lookAt(
-		position,
-		position + forward,
-		up
+		position_,
+		position_ + forward_,
+		up_
 	);
 }
 
 glm::vec3 Camera::getPosition() {
-	return position;
+	return position_;
 }
 
 glm::vec3 Camera::getUp() {
-	return up;
+	return up_;
 }
 
 glm::vec3 Camera::getForward() {
-	return forward;
+	return forward_;
 }
 
 glm::vec3 Camera::getRight() {
-	return glm::normalize(glm::cross(forward, up));
+	return glm::normalize(glm::cross(forward_, up_));
 }

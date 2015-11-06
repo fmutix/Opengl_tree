@@ -22,10 +22,10 @@ public:
 	void display();
 
 private:
-	Phong phong;
-	glm::vec3 lightColor;
-	glm::vec3 objectColor;
-	std::vector<Object3D> objects;
+	Phong phong_;
+	glm::vec3 lightColor_;
+	glm::vec3 objectColor_;
+	std::vector<Object3D> objects_;
 };
 
 #endif // SCENE_HPP

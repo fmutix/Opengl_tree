@@ -22,16 +22,16 @@ public:
 	unsigned int facesSize();
 
 private:
-	GLuint vao;
-	GLuint vertexBuffer;
-	GLuint normalBuffer;
-	GLuint indexBuffer;
+	GLuint vao_;
+	GLuint vertexBuffer_;
+	GLuint normalBuffer_;
+	GLuint indexBuffer_;
 
-	std::vector<glm::vec3> vertices;
-	std::vector<glm::vec3> normals;
-	std::vector<GLuint> indices;
+	std::vector<glm::vec3> vertices_;
+	std::vector<glm::vec3> normals_;
+	std::vector<GLuint> indices_;
 
-	Texture texture;
+	Texture texture_;
 
 	void readMesh(std::string filename);
 	glm::vec3 computeTriangleNormal(unsigned int faceId);

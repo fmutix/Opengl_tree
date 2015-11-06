@@ -17,9 +17,9 @@ public:
 	void rotate(float vx, float vy, glm::vec3 axis);
 
 private:
-	float ambientIntensity;
-	glm::vec3 diffusePosition;
-	float specularIntensity;
+	float ambientIntensity_;
+	glm::vec3 diffusePosition_;
+	float specularIntensity_;
 };
 
 #endif // PHONG_HPP

@@ -14,11 +14,11 @@ public:
 	int getHeight();
 	
 private:
-	float fovy;
-	int width;
-	int height;
-	float zNear;
-	float zFar;
+	float fovy_;
+	int width_;
+	int height_;
+	float zNear_;
+	float zFar_;
 };
 
 #endif // CAMERA_HPP

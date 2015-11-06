@@ -12,10 +12,10 @@ public:
 	GLuint getTexture();
 
 private:
-	GLuint texture;
-	int width;
-	int height;
-	unsigned char* image;
+	GLuint texture_;
+	int width_;
+	int height_;
+	unsigned char* image_;
 };
 
 #endif // TEXTURE_HPP

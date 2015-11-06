@@ -18,14 +18,14 @@ Shader::Shader(
 void Shader::init(
     std::string vsFilename, std::string fragFilename, std::string gsFilename
 ) {
-    vertexShader = addShader(GL_VERTEX_SHADER, vsFilename);
-    fragmentShader = addShader(GL_FRAGMENT_SHADER, fragFilename);
+    vertexShader_ = addShader(GL_VERTEX_SHADER, vsFilename);
+    fragmentShader_ = addShader(GL_FRAGMENT_SHADER, fragFilename);
     
     if (!gsFilename.empty()) {
-        geometryShader = addShader(GL_GEOMETRY_SHADER, gsFilename);
+        geometryShader_ = addShader(GL_GEOMETRY_SHADER, gsFilename);
     }
     else {
-        geometryShader = 0;
+        geometryShader_ = 0;
     }
     
     initProgram();
@@ -67,17 +67,17 @@ std::string Shader::readShaderFile (std::string filename) {
 
 
 void Shader::initProgram() {
-    program = glCreateProgram();
+    program_ = glCreateProgram();
     
-    glAttachShader(program, vertexShader);
-    glAttachShader(program, fragmentShader);
-    if (geometryShader != 0) {
-        glAttachShader(program, geometryShader);
+    glAttachShader(program_, vertexShader_);
+    glAttachShader(program_, fragmentShader_);
+    if (geometryShader_ != 0) {
+        glAttachShader(program_, geometryShader_);
     }
     
-    glLinkProgram(program);
+    glLinkProgram(program_);
     GLint linked;
-    glGetProgramiv(program, GL_LINK_STATUS, &linked);
+    glGetProgramiv(program_, GL_LINK_STATUS, &linked);
     if (!linked) {
         linkageErrors();
         exit(EXIT_FAILURE);
@@ -85,11 +85,11 @@ void Shader::initProgram() {
 }
 
 void Shader::use() {
-    glUseProgram(program);
+    glUseProgram(program_);
 }
 
 GLuint Shader::uniformLocation(std::string uniformName) {
-    return glGetUniformLocation(program, uniformName.c_str());
+    return glGetUniformLocation(program_, uniformName.c_str());
 }
 
 void Shader::setUniform(const std::string& name, GLuint value) {
@@ -133,10 +133,10 @@ void Shader::compilationErrors(GLint shader) {
 void Shader::linkageErrors() {
     GLint length;
     
-    glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length);
+    glGetProgramiv(program_, GL_INFO_LOG_LENGTH, &length);
     GLchar* log = new GLchar[length + 1];
     
-    glGetProgramInfoLog(program, length, &length, log);
+    glGetProgramInfoLog(program_, length, &length, log);
     std::cout << "Compile Error, Log Below" << std::endl
          << log << std::endl;
     
