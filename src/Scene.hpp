@@ -12,6 +12,7 @@ class Scene {
 public:
 
 	Scene();
+	Scene(float ambient);
 
 	void uniform(Shader& shader);
 	void uniformPhong(Shader& shader);
@@ -23,6 +24,7 @@ public:
 
 private:
 	Phong phong_;
+	float ambient_;
 	glm::vec3 lightColor_;
 	glm::vec3 objectColor_;
 	std::vector<Object3D> objects_;

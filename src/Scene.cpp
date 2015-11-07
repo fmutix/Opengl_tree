@@ -2,16 +2,23 @@
 
 #include "Scene.hpp"
 
-Scene::Scene() : phong_(Phong(0.1f, glm::vec3(1.0f, 2.0f, 3.0f), 2.0f)) {
-		lightColor_ = glm::vec3(1.0f, 1.0f, 1.0f);
-	}
+Scene::Scene() : phong_(Phong(glm::vec3(1.0f, 1.0f, 0.5f), 2.0f)) {
+	ambient_ = 0.1;
+	lightColor_ = glm::vec3(1.0f, 1.0f, 1.0f);
+}
+
+Scene::Scene(float ambient) : phong_(Phong(glm::vec3(1.0f, 0.0f, 0.0f), 2.0f)) {
+	ambient_ = ambient;
+	lightColor_ = glm::vec3(1.0f, 1.0f, 1.0f);
+}
 
 void Scene::uniform(Shader& shader) {
+	shader.setUniform("ambient", ambient_);
 	uniformPhong(shader);
 }
 
 void Scene::uniformPhong(Shader& shader) {
-	shader.setUniform("ambientIntensity", phong_.getAmbientIntensity());
+	
 	shader.setUniform("diffusePos", phong_.getDiffusePosition());
 	shader.setUniform("specularIntensity", phong_.getSpecularIntensity());
 	shader.setUniform("lightColor", lightColor_);

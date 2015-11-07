@@ -2,16 +2,9 @@
 
 #include "Phong.hpp"
 
-Phong::Phong(
-	const float& ambient, const glm::vec3& diffuse, const float& specular) {
-
-	ambientIntensity_ = ambient;
+Phong::Phong(const glm::vec3& diffuse, const float& specular) {
 	diffusePosition_ = diffuse;
 	specularIntensity_ = specular;
-}
-
-float Phong::getAmbientIntensity() {
-	return ambientIntensity_;
 }
 
 glm::vec3 Phong::getDiffusePosition() {
