@@ -19,7 +19,7 @@ void main() {
 	tmp_world[3].z += objectModel.z;
 	gl_Position = projection * view * tmp_world * vec4(position, 1.0f);
 	fragPos = vec3(tmp_world * vec4(position, 1.0f));
-	objPos = position + objectModel;
+	objPos = position;
 
 	fragNormal = normalize(
 		mat3(transpose(inverse(tmp_world))) * normal

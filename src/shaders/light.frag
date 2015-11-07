@@ -55,9 +55,9 @@ void main (void) {
 	float spec = pow(max(dot(viewDir, reflectDir), 0.0f), 32);
 	vec3 specular = spec * specularIntensity * lightColor;
 
-	vec3 sphericalCoord = getSphericalCoord(normalize(objPos));
+	vec3 sphericalCoord = getSphericalCoord(objPos)	;
 	vec4 texColor = texture(tex, vec2(sphericalCoord.y, sphericalCoord.z));
-	texColor = texture(tex, latitudeMapping(objPos));
+	//texColor = texture(tex, latitudeMapping(objPos));
 
 	if (renderStyle == 0) {
 		color = vec4((ambient + diffuse + specular) * vec3(texColor), 1.0f);

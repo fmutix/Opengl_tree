@@ -6,7 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "Shader.hpp"
-#include "Phong.hpp"
+#include "Light.hpp"
 #include "Camera.hpp"
 #include "Screen.hpp"
 #include "Scene.hpp"
@@ -84,7 +84,7 @@ void mousedrag(int x, int y) {
 	float vx = (float) dx / screen.getWidth();
 	float vy = (float) dy / screen.getHeight();
 	glm::vec3 axis = camera.rotate(vx, vy);
-	scene.rotatePhong(vx, vy, axis);
+	scene.rotateLight(vx, vy, axis);
 	
 	glutPostRedisplay();
 }
