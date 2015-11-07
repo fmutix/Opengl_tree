@@ -2,7 +2,7 @@
 
 #include "Scene.hpp"
 
-Scene::Scene() : phong_(Phong(glm::vec3(1.0f, 1.0f, 0.5f), 2.0f)) {
+Scene::Scene() : phong_(Phong(glm::vec3(0.5f, 0.5f, 0.5f), 2.0f)) {
 	ambient_ = 0.1;
 	lightColor_ = glm::vec3(1.0f, 1.0f, 1.0f);
 }
