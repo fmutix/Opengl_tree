@@ -60,7 +60,7 @@ void main (void) {
 	//texColor = texture(tex, latitudeMapping(objPos));
 
 	if (renderStyle == 0) {
-		color = vec4((ambient + diffuse + specular) * vec3(texColor), 1.0f);
+		color = vec4((ambient + diffuse) * vec3(texColor) + specular, 1.0f);
 		/*color = vec4((ambient + diffuse + specular) * objectColor, 1.0f);*/
 	}
 	else if (renderStyle == 1) {
@@ -68,7 +68,7 @@ void main (void) {
 			color = vec4(0.0f, 0.0f, 0.0f, 0.0f);
 		}
 		else {
-			color = vec4((ambient + diffuse + specular) * vec3(texColor), 1.0f);
+			color = vec4((ambient + diffuse) * vec3(texColor) + specular, 1.0f);
 		}
 	}
 }
