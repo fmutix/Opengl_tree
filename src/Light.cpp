@@ -2,10 +2,14 @@
 
 #include "Light.hpp"
 
-Light::Light(glm::vec3 diffuse, float specular, glm::vec3 color) {
+Light::Light() {}
+
+Light::Light(
+	std::string filename, glm::vec3 diffuse, float specular, glm::vec3 rayColor, glm::vec3 color
+) : Object3D(filename, diffuse, color) {
 	diffusePosition_ = diffuse;
 	specularIntensity_ = specular;
-	color_ = color;
+	rayColor_ = rayColor;
 }
 
 glm::vec3 Light::getDiffusePosition() {
@@ -16,8 +20,8 @@ float Light::getSpecularIntensity() {
 	return specularIntensity_;
 }
 
-glm::vec3 Light::getColor() {
-	return color_;
+glm::vec3 Light::getRayColor() {
+	return rayColor_;
 }
 
 void Light::rotate(float vx, float vy, glm::vec3 axis) {

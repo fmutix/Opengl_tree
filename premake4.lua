@@ -1,7 +1,7 @@
 solution "OpenGL_Tree"
     configurations { "Release" }
     
-    buildoptions { "-std=c++11", "-Wall", "-Wextra" }
+    buildoptions { "-std=c++11", "-Wall", "-Wextra"}
     
     project "project.out"
         kind "WindowedApp"

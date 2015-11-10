@@ -12,11 +12,12 @@ class Scene {
 public:
 
 	Scene();
+	Scene(Light light);
 	Scene(float ambient, Light light);
 
 	void uniform(Shader& shader);
 	void uniformLight(Shader& shader);
-	
+
 	void rotateLight(float vx, float vy, glm::vec3 axis);
 
 	void add(Object3D& obj);
