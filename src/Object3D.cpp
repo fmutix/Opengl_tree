@@ -7,15 +7,24 @@
 
 Object3D::Object3D() {}
 
-Object3D::Object3D(std::string filename, glm::vec3 position) {
-	color_ = glm::vec3(1.0f, 0.2f, 0.2f);
+Object3D::Object3D(std::string filename, glm::vec3 position, std::string tex) {
+	color_ = glm::vec3(1.0f, 1.0f, 1.0f);
 	position_ = position;
 	init(filename);
+	texture_ = Texture(tex);
+	textured_ = true;
+}
+
+Object3D::Object3D(std::string filename, glm::vec3 position, glm::vec3 color) {
+	color_ = color;
+	position_ = position;
+	init(filename);
+	textured_ = false;
 }
 
 void Object3D::init(std::string filename) {
 	readMesh(filename);
-	
+
 	if (normals_.empty()) {
 		computeNormals();
 	}
@@ -164,11 +173,17 @@ glm::vec3 Object3D::getPosition() {
 	return position_;
 }
 
+bool Object3D::hasTexture() {
+	return textured_;
+}
+
 void Object3D::display() {
 	// Bind VAO & index buffer
 	glBindVertexArray(vao_);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer_);
-	glBindTexture(GL_TEXTURE_2D, texture_.getTexture());
+	if (hasTexture()) {
+		glBindTexture(GL_TEXTURE_2D, texture_.getTexture());
+	}
 
 	// Display
 	glDrawElements(GL_TRIANGLES, indices_.size(), GL_UNSIGNED_INT, 0);
@@ -176,6 +191,9 @@ void Object3D::display() {
 	// Unbind VAO & index buffer
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+	if (hasTexture()) {
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
 }
 
 glm::uvec3 Object3D::getFace(unsigned int faceId) {

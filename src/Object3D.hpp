@@ -11,7 +11,8 @@
 class Object3D {
 public:
 	Object3D();
-	Object3D(std::string filename, glm::vec3 position);
+	Object3D(std::string filename, glm::vec3 position, std::string tex);
+	Object3D(std::string filename, glm::vec3 position, glm::vec3 color);
 
 	void init(std::string filename);
 
@@ -20,6 +21,7 @@ public:
 	glm::vec3 getColor();
 	glm::vec3 getPosition();
 
+	bool hasTexture();
 	void display();
 	unsigned int facesSize();
 
@@ -36,6 +38,7 @@ private:
 	glm::vec3 position_;
 	glm::vec3 color_;
 	Texture texture_;
+	bool textured_;
 
 	void readMesh(std::string filename);
 	glm::vec3 computeTriangleNormal(unsigned int faceId);

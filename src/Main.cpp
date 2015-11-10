@@ -210,13 +210,9 @@ void initResources() {
 	normalShader.use();
 	screen.uniformProjectionMatrix(normalShader);
 
-	Texture texture("res/textures/wallHappy.jpg");
-	Object3D obj1("res/obj/apple.obj", glm::vec3(0.0f));
-//	Object3D obj2("res/obj/apple.obj", glm::mat4(1.0f));
-	Object3D obj2("res/obj/apple.obj", glm::vec3(1.0f, 0.0f, 0.0f));
-
-	obj1.setTexture(texture);
-	obj2.setTexture(texture);
+//	Object3D obj1("res/obj/apple.obj", glm::vec3(0.0f), glm::vec3(1.0f));
+	Object3D obj1("res/obj/apple.obj", glm::vec3(0.0f), "res/textures/wool.jpg");
+	Object3D obj2("res/obj/apple.obj", glm::vec3(1.0f, 0.0f, 0.0f), "res/textures/wallHappy.jpg");
 
 	scene.add(obj1);
 	scene.add(obj2);
