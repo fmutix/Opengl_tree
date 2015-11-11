@@ -183,11 +183,11 @@ void display() {
 	scene.uniform(shader);
 	scene.display(shader);
 
-	/*
+	//*
 	normalShader.use();
-	updateworldMatrix(normalShader);
+	updateWorldMatrix(normalShader);
 	camera.uniformViewMatrix(normalShader);
-	scene.display();
+	scene.display(normalShader);
 	//*/
 
 	glFlush();
@@ -212,13 +212,20 @@ void initResources() {
 	normalShader.use();
 	screen.uniformProjectionMatrix(normalShader);
 
-//	Object3D obj1("res/obj/apple.obj", glm::vec3(0.0f), glm::vec3(1.0f));
-	Object3D obj1("res/obj/apple.obj", glm::vec3(0.0f), "res/textures/wool.jpg");
-	Object3D obj2("res/obj/apple.obj", glm::vec3(1.0f, 0.0f, 0.0f), "res/textures/wallHappy.jpg");
+	Object3D obj1(
+		"res/obj/apple.obj",
+		glm::vec3(0.0f),
+		"res/textures/wool.jpg"
+	);
+	Object3D obj2(
+		"res/obj/apple.obj",
+		glm::vec3(1.0f, 0.0f, 0.0f),
+		"res/textures/wallHappy.jpg"
+	);
 
 	scene.add(obj1);
 	scene.add(obj2);
-	
+
 	glClearColor(0.4, 0.4, 0.4, 0);
 }
 
@@ -259,7 +266,13 @@ void initLibraries(int argc, char* argv[]) {
 int main(int argc, char* argv[]) {
 	initLibraries(argc, argv);
 
-	light = Light("res/obj/cube.obj", glm::vec3(0.5f, 0.5f, 0.5f), 2.0f, glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
+	light = Light(
+		"res/obj/cube.obj",
+		glm::vec3(0.5f, 0.5f, 0.5f),
+		2.0f,
+		glm::vec3(1.0f, 1.0f, 1.0f),
+		glm::vec3(1.0f, 1.0f, 1.0f)
+	);
 
 	scene = Scene(0.1, light);
 	initResources();

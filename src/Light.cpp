@@ -5,7 +5,8 @@
 Light::Light() {}
 
 Light::Light(
-	std::string filename, glm::vec3 diffuse, float specular, glm::vec3 rayColor, glm::vec3 color
+	std::string filename, glm::vec3 diffuse, float specular,
+	glm::vec3 rayColor, glm::vec3 color
 ) : Object3D(filename, diffuse, color) {
 	diffusePosition_ = diffuse;
 	specularIntensity_ = specular;

@@ -13,15 +13,11 @@ out vec3 fragPos;
 out vec3 objPos;
 
 void main() {
-	mat4 tmp_world = world;
-	tmp_world[3].x += objectModel.x;
-	tmp_world[3].y += objectModel.y;
-	tmp_world[3].z += objectModel.z;
-	gl_Position = projection * view * tmp_world * vec4(position, 1.0f);
-	fragPos = vec3(tmp_world * vec4(position, 1.0f));
+	gl_Position = projection * view * world * vec4(position + objectModel, 1.0f);
+	fragPos = vec3(world * vec4(position + objectModel, 1.0f));
 	objPos = position;
 
 	fragNormal = normalize(
-		mat3(transpose(inverse(tmp_world))) * normal
+		mat3(transpose(inverse(world))) * normal
 	);
 }
