@@ -5,10 +5,6 @@
 #include <GL/freeglut.h>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <unistd.h>
-#include <execinfo.h>
-#include <signal.h>
-
 #include "Shader.hpp"
 #include "Light.hpp"
 #include "Camera.hpp"
@@ -262,7 +258,7 @@ void initLibraries(int argc, char* argv[]) {
 
 int main(int argc, char* argv[]) {
 	initLibraries(argc, argv);
-	
+
 	light = Light("res/obj/cube.obj", glm::vec3(0.5f, 0.5f, 0.5f), 2.0f, glm::vec3(1.0f, 1.0f, 1.0f), glm::vec3(1.0f, 1.0f, 1.0f));
 
 	scene = Scene(0.1, light);
