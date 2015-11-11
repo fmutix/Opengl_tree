@@ -85,8 +85,7 @@ void mousedrag(int x, int y) {
 
 	float vx = (float) dx / screen.getWidth();
 	float vy = (float) dy / screen.getHeight();
-	glm::vec3 axis = camera.rotate(vx, vy);
-	scene.rotateLight(vx, vy, axis);
+	camera.rotate(vx, vy);
 	
 	glutPostRedisplay();
 }
@@ -128,9 +127,11 @@ void keyboard(unsigned char key, int, int) {
 		break;
 	case 'p':
 		world = glm::rotate(world, 0.05f, glm::vec3(0.f, -0.05f, 0.f));
+		scene.rotateLight(0.05f, glm::vec3(0.f, -0.05f, 0.f));
 		break;
 	case 'm':
 		world = glm::rotate(world, 0.05f, glm::vec3(0.05f, 0.f, 0.f));
+		scene.rotateLight(0.05f, glm::vec3(0.05f, 0.f, 0.f));
 		break;
 	case 'r':
 		camera.reset();
@@ -183,7 +184,7 @@ void display() {
 	scene.uniform(shader);
 	scene.display(shader);
 
-	//*
+	/*
 	normalShader.use();
 	updateWorldMatrix(normalShader);
 	camera.uniformViewMatrix(normalShader);
@@ -269,7 +270,7 @@ int main(int argc, char* argv[]) {
 	light = Light(
 		"res/obj/cube.obj",
 		glm::vec3(0.5f, 0.5f, 0.5f),
-		2.0f,
+		1.0f,
 		glm::vec3(1.0f, 1.0f, 1.0f),
 		glm::vec3(1.0f, 1.0f, 1.0f)
 	);

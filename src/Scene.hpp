@@ -18,7 +18,7 @@ public:
 	void uniform(Shader& shader);
 	void uniformLight(Shader& shader);
 
-	void rotateLight(float vx, float vy, glm::vec3 axis);
+	void rotateLight(float angle, glm::vec3 axis);
 
 	void add(Object3D& obj);
 	void display(Shader& shader);

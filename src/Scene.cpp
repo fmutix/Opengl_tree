@@ -24,8 +24,8 @@ void Scene::uniformLight(Shader& shader) {
 	shader.setUniform("lightColor", light_.getRayColor());
 }
 
-void Scene::rotateLight(float vx, float vy, glm::vec3 axis) {
-	light_.rotate(vx, vy, axis);
+void Scene::rotateLight(float angle, glm::vec3 axis) {
+	light_.rotate(angle, axis);
 }
 
 void Scene::add(Object3D& obj) {
@@ -35,10 +35,10 @@ void Scene::add(Object3D& obj) {
 void Scene::display(Shader& shader) {
 	for (Object3D obj : objects_) {
 		shader.setUniform("objectColor", obj.getColor());
-		shader.setUniform("objectModel", obj.getPosition());
+		shader.setUniform("objectPos", obj.getPosition());
 		obj.display();
 	}
 	shader.setUniform("objectColor", light_.getColor());
-	shader.setUniform("objectModel", light_.getPosition());
+	shader.setUniform("objectPos", light_.getPosition());
 	light_.display();
 }

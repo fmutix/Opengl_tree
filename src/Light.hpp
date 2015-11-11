@@ -19,7 +19,7 @@ public:
 	glm::vec3 getDiffusePosition();
 	float getSpecularIntensity();
 	glm::vec3 getRayColor();
-	void rotate(float vx, float vy, glm::vec3 axis);
+	void rotate(float angle, glm::vec3 axis);
 
 private:
 	glm::vec3 diffusePosition_;
