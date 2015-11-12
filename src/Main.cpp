@@ -38,12 +38,13 @@ int GLUTmouse[2] = { 0, 0 };
 
 GLuint renderStyle;
 
-Shader shader;
+Shader objectShader;
+Shader lightShader;
 Shader normalShader;
 
 void updateRenderStyle(GLuint value) {
 	renderStyle = value;
-	shader.setUniform("renderStyle", value);
+	objectShader.setUniform("renderStyle", value);
 }
 
 void updateWorldMatrix(Shader& shader) {
@@ -110,7 +111,7 @@ void keyboard(unsigned char key, int, int) {
 		exit(0);
 		break;
 	case 'w':
-		shader.use();
+		objectShader.use();
 		updateRenderStyle();
 		break;
 	case 'z':
@@ -164,8 +165,8 @@ void keyboard2(int key, int, int) {
 void reshape(int width, int height) {
 	screen.reshape(width, height);
 
-	shader.use();
-	screen.uniformProjectionMatrix(shader);
+	objectShader.use();
+	screen.uniformProjectionMatrix(objectShader);
 
 	normalShader.use();
 	screen.uniformProjectionMatrix(normalShader);
@@ -177,12 +178,19 @@ void reshape(int width, int height) {
 void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	shader.use();
-	updateWorldMatrix(shader);
-	camera.uniformViewMatrix(shader);
-	camera.uniformPosition(shader);
-	scene.uniform(shader);
-	scene.display(shader);
+	objectShader.use();
+	updateWorldMatrix(objectShader);
+	camera.uniformViewMatrix(objectShader);
+	camera.uniformPosition(objectShader);
+	scene.uniformObjects(objectShader);
+	scene.displayObjects(objectShader);
+
+	lightShader.use();
+	updateWorldMatrix(lightShader);
+	camera.uniformViewMatrix(lightShader);
+	camera.uniformPosition(lightShader);
+	scene.uniformLight(lightShader);
+	scene.displayLight();
 
 	/*
 	normalShader.use();
@@ -199,16 +207,20 @@ void display() {
  * used for rendering.
  */
 void initResources() {
-	shader.init("src/shaders/object.vs", "src/shaders/object.frag");
+	objectShader.init("src/shaders/object.vs", "src/shaders/object.frag");
+	lightShader.init("src/shaders/light.vs", "src/shaders/light.frag");
 	
 	normalShader.init(
 		"src/shaders/normals.vs", "src/shaders/normals.frag",
 		"src/shaders/normals.gs"
 	);
 
-	shader.use();
+	objectShader.use();
 	updateRenderStyle(0);
-	screen.uniformProjectionMatrix(shader);
+	screen.uniformProjectionMatrix(objectShader);
+
+	lightShader.use();
+	screen.uniformProjectionMatrix(lightShader);
 
 	normalShader.use();
 	screen.uniformProjectionMatrix(normalShader);

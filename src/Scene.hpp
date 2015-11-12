@@ -15,13 +15,14 @@ public:
 	Scene(Light light);
 	Scene(float ambient, Light light);
 
-	void uniform(Shader& shader);
+	void uniformObjects(Shader& shader);
 	void uniformLight(Shader& shader);
 
 	void rotateLight(float angle, glm::vec3 axis);
 
 	void add(Object3D& obj);
-	void display(Shader& shader);
+	void displayObjects(Shader& shader);
+	void displayLight();
 
 private:
 	Light light_;
