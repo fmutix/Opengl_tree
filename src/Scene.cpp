@@ -18,7 +18,6 @@ void Scene::uniform(Shader& shader) {
 }
 
 void Scene::uniformLight(Shader& shader) {
-	
 	shader.setUniform("diffusePos", light_.getDiffusePosition());
 	shader.setUniform("specularIntensity", light_.getSpecularIntensity());
 	shader.setUniform("lightColor", light_.getRayColor());

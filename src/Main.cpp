@@ -199,7 +199,7 @@ void display() {
  * used for rendering.
  */
 void initResources() {
-	shader.init("src/shaders/light.vs", "src/shaders/light.frag");
+	shader.init("src/shaders/object.vs", "src/shaders/object.frag");
 	
 	normalShader.init(
 		"src/shaders/normals.vs", "src/shaders/normals.frag",
