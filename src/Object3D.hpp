@@ -20,6 +20,8 @@ public:
 	void setTexture(Texture& texture);
 	glm::vec3 getColor();
 	glm::vec3 getPosition();
+	float getScale();
+	void setScale(float scale);
 
 	bool hasTexture();
 	void display();
@@ -36,6 +38,7 @@ private:
 	std::vector<GLuint> indices_;
 
 	glm::vec3 position_;
+	float scale_;
 	glm::vec3 color_;
 	Texture texture_;
 	bool textured_;

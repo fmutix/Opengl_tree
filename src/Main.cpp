@@ -13,8 +13,12 @@
 #include "Texture.hpp"
 #include "Object3D.hpp"
 
+const int MS_FRAME = 16;
+const float SPEED_STEP = 0.1;
+
 int startTime;
 int lag = 0;
+float speed = 1;
 
 glm::mat4 world(1.0f);
 
@@ -129,16 +133,26 @@ void keyboard(unsigned char key, int, int) {
 	case 's':
 		world = glm::translate(world, glm::vec3(0.f, -0.05f, 0.f));
 		break;
-	case 'p':
+	case 'a':
 		world = glm::rotate(world, 0.05f, glm::vec3(0.f, -0.05f, 0.f));
 		scene.rotateLight(0.05f, glm::vec3(0.f, -0.05f, 0.f));
 		break;
-	case 'm':
+	case 'e':
 		world = glm::rotate(world, 0.05f, glm::vec3(0.05f, 0.f, 0.f));
 		scene.rotateLight(0.05f, glm::vec3(0.05f, 0.f, 0.f));
 		break;
 	case 'r':
 		camera.reset();
+		break;
+	case 'p':
+		if (speed + SPEED_STEP < 5) {
+			speed += SPEED_STEP;
+		}
+		break;
+	case 'm':
+		if (speed - SPEED_STEP >= 0) {
+			speed -= SPEED_STEP;
+		}
 		break;
 	}
 	glutPostRedisplay();
@@ -185,9 +199,9 @@ void display() {
 	int deltaTime = currentTime - startTime;
 	lag += deltaTime;
 	startTime = currentTime;
-	if (lag > 16) {
-		scene.rotateLight(0.05f * deltaTime, glm::vec3(0.05f, 0.0f, 0.0f));
-		lag -= 16;
+	if (lag > MS_FRAME) {
+		scene.rotateLight(0.1f * speed * deltaTime, glm::vec3(0.05f, 0.0f, 0.0f));
+		lag -= MS_FRAME;
 	}
 
 	objectShader.use();

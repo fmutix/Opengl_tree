@@ -10,6 +10,7 @@ Object3D::Object3D() {}
 Object3D::Object3D(std::string filename, glm::vec3 position, std::string tex) {
 	color_ = glm::vec3(1.0f, 1.0f, 1.0f);
 	position_ = position;
+	scale_ = 1.0;
 	init(filename);
 	texture_ = Texture(tex);
 	textured_ = true;
@@ -18,6 +19,7 @@ Object3D::Object3D(std::string filename, glm::vec3 position, std::string tex) {
 Object3D::Object3D(std::string filename, glm::vec3 position, glm::vec3 color) {
 	color_ = color;
 	position_ = position;
+	scale_ = 1.0;
 	init(filename);
 	textured_ = false;
 }
@@ -171,6 +173,14 @@ glm::vec3 Object3D::getColor() {
 
 glm::vec3 Object3D::getPosition() {
 	return position_;
+}
+
+float Object3D::getScale() {
+	return scale_;
+}
+
+void Object3D::setScale(float scale) {
+	scale_ = scale;
 }
 
 bool Object3D::hasTexture() {
