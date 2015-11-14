@@ -26,7 +26,5 @@ glm::vec3 Light::getRayColor() {
 }
 
 void Light::rotate(float angle, glm::vec3 axis) {
-//	float angle = 4.0f * (fabs(vx) + fabs(vy));
-//	diffusePosition_ = glm::rotate(diffusePosition_, angle, axis);
 	diffusePosition_ = glm::rotate(diffusePosition_, angle, axis);
 }

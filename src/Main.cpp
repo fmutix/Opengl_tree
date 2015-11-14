@@ -13,6 +13,9 @@
 #include "Texture.hpp"
 #include "Object3D.hpp"
 
+int startTime;
+int lag = 0;
+
 glm::mat4 world(1.0f);
 
 Camera camera(
@@ -178,6 +181,15 @@ void reshape(int width, int height) {
 void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	int currentTime = glutGet(GLUT_ELAPSED_TIME);
+	int deltaTime = currentTime - startTime;
+	lag += deltaTime;
+	startTime = currentTime;
+	if (lag > 16) {
+		scene.rotateLight(0.05f * deltaTime, glm::vec3(0.05f, 0.0f, 0.0f));
+		lag -= 16;
+	}
+
 	objectShader.use();
 	updateWorldMatrix(objectShader);
 	camera.uniformViewMatrix(objectShader);
@@ -196,10 +208,11 @@ void display() {
 	normalShader.use();
 	updateWorldMatrix(normalShader);
 	camera.uniformViewMatrix(normalShader);
-	scene.display(normalShader);
+	scene.displayObjects(normalShader);
 	//*/
 
 	glFlush();
+	glutPostRedisplay();
 }
 
 /**
@@ -272,7 +285,7 @@ void initLibraries(int argc, char* argv[]) {
 	}
 
 	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LESS) ;
+	glDepthFunc(GL_LESS);
 	glEnable(GL_MULTISAMPLE);
 }
 
@@ -290,6 +303,7 @@ int main(int argc, char* argv[]) {
 	scene = Scene(0.1, light);
 	initResources();
 
+	startTime = glutGet(GLUT_ELAPSED_TIME);
 	glutMainLoop();
 
 	return EXIT_SUCCESS;

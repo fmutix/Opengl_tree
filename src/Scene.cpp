@@ -21,7 +21,7 @@ void Scene::uniformObjects(Shader& shader) {
 
 void Scene::uniformLight(Shader& shader) {
 	shader.setUniform("objectColor", light_.getColor());
-	shader.setUniform("objectPos", light_.getPosition());
+	shader.setUniform("objectPos", light_.getDiffusePosition());
 }
 
 void Scene::rotateLight(float angle, glm::vec3 axis) {
