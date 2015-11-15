@@ -36,7 +36,7 @@ void Object3D::init(std::string filename) {
 
 void Object3D::readMesh(std::string filename) {
 	std::ifstream ifs(filename.c_str(), std::ios::in);
-	
+
 	if (!ifs) {
 		std::cerr << filename << " does not exist." << std::endl;
 		exit(1);

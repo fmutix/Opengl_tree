@@ -12,6 +12,7 @@
 #include "Scene.hpp"
 #include "Texture.hpp"
 #include "Object3D.hpp"
+#include "Skybox.hpp"
 
 const int MS_FRAME = 16;
 const float SPEED_STEP = 0.1;
@@ -37,7 +38,7 @@ Screen screen(
 );
 
 Light light;
-
+Skybox skybox;
 Scene scene;
 
 int button_pressed = 0; // 1 if a button is currently being pressed.
@@ -47,6 +48,7 @@ GLuint renderStyle;
 
 Shader objectShader;
 Shader lightShader;
+Shader skyboxShader;
 Shader normalShader;
 
 void updateRenderStyle(GLuint value) {
@@ -185,6 +187,12 @@ void reshape(int width, int height) {
 	objectShader.use();
 	screen.uniformProjectionMatrix(objectShader);
 
+	lightShader.use();
+	screen.uniformProjectionMatrix(lightShader);
+
+	skyboxShader.use();
+	screen.uniformProjectionMatrix(skyboxShader);
+
 	normalShader.use();
 	screen.uniformProjectionMatrix(normalShader);
 }
@@ -200,7 +208,7 @@ void display() {
 	lag += deltaTime;
 	startTime = currentTime;
 	if (lag > MS_FRAME) {
-		scene.rotateLight(0.1f * speed * deltaTime, glm::vec3(0.05f, 0.0f, 0.0f));
+		scene.rotateLight(0.01f * speed * deltaTime, glm::vec3(0.05f, 0.0f, 0.0f));
 		lag -= MS_FRAME;
 	}
 
@@ -210,6 +218,13 @@ void display() {
 	camera.uniformPosition(objectShader);
 	scene.uniformObjects(objectShader);
 	scene.displayObjects(objectShader);
+
+	skyboxShader.use();
+	updateWorldMatrix(skyboxShader);
+	camera.uniformViewMatrix(skyboxShader);
+	camera.uniformPosition(skyboxShader);
+	skybox.setUniform(skyboxShader);
+	skybox.display();
 
 	lightShader.use();
 	updateWorldMatrix(lightShader);
@@ -236,6 +251,7 @@ void display() {
 void initResources() {
 	objectShader.init("src/shaders/object.vs", "src/shaders/object.frag");
 	lightShader.init("src/shaders/light.vs", "src/shaders/light.frag");
+	skyboxShader.init("src/shaders/skybox.vs", "src/shaders/skybox.frag");
 	
 	normalShader.init(
 		"src/shaders/normals.vs", "src/shaders/normals.frag",
@@ -248,6 +264,9 @@ void initResources() {
 
 	lightShader.use();
 	screen.uniformProjectionMatrix(lightShader);
+
+	skyboxShader.use();
+	screen.uniformProjectionMatrix(skyboxShader);
 
 	normalShader.use();
 	screen.uniformProjectionMatrix(normalShader);
@@ -313,7 +332,7 @@ int main(int argc, char* argv[]) {
 		glm::vec3(1.0f, 1.0f, 1.0f),
 		glm::vec3(1.0f, 1.0f, 1.0f)
 	);
-
+	skybox = Skybox(glm::vec3(0.0));
 	scene = Scene(0.1, light);
 	initResources();
 
