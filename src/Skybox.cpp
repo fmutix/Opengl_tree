@@ -21,8 +21,8 @@ Skybox::Skybox(glm::vec3 position) {
 
 void Skybox::init(std::string filename) {
 	readMesh(filename);
-	createObjectBuffers();
 	initTexture();
+	createObjectBuffers();
 }
 
 void Skybox::readMesh(std::string filename) {
@@ -92,6 +92,7 @@ void Skybox::createObjectBuffers() {
 }
 
 void Skybox::initTexture() {
+	glActiveTexture(GL_TEXTURE0);
 	glGenTextures(1, &texture_);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, texture_);
 
