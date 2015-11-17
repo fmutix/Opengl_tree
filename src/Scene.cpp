@@ -2,14 +2,47 @@
 
 #include "Scene.hpp"
 
+const int NB_PARTICLE = 10;
+
 Scene::Scene() {}
 
 Scene::Scene(Light light) : light_(light) {
 	ambient_ = 0.1;
+	initApple();
+	initParticles();
 }
 
 Scene::Scene(float ambient, Light light) : light_(light) {
 	ambient_ = ambient;
+	initApple();
+	initParticles();
+}
+
+void Scene::initApple() {
+	appleMesh_ = Object3D(
+		"res/obj/apple.obj",
+		glm::vec3(1.0f, 0.0f, 0.0f),
+		glm::vec3(1.0f, 0.0f, 0.0f)
+	);
+}
+
+void Scene::initParticles() {
+	for (int i = 0; i < NB_PARTICLE; i++) {
+		glm::vec3 position(
+			randBounded(-2, 2),
+			randBounded(-2, 2),
+			randBounded(-2, 2)
+		);
+		float fade = randBounded(0.0001f, 0.001f);
+		particles_.push_back(Particle(1.0f, fade, position));
+	}
+}
+
+float Scene::randBounded(float min, float max) {
+	float random = (float) rand() / (float) RAND_MAX;
+	float delta = max - min;
+
+	return min + (random * delta);
 }
 
 void Scene::uniformObjects(Shader& shader) {
@@ -34,11 +67,13 @@ void Scene::add(Object3D& obj) {
 }
 
 void Scene::displayObjects(Shader& shader) {
-	for (Object3D obj : objects_) {
-		shader.setUniform("objectColor", obj.getColor());
-		shader.setUniform("objectPos", obj.getPosition());
-		shader.setUniform("objectScale", obj.getScale());
-		obj.display();
+	for (Particle& p : particles_) {
+		p.decreaseLife();
+		shader.setUniform("objectColor", appleMesh_.getColor());
+		shader.setUniform("objectPos", p.getPosition());
+		shader.setUniform("objectScale", 1.0f - p.getLife());
+		shader.setUniform("objectHasTex", (GLuint)appleMesh_.hasTexture());
+		appleMesh_.display();
 	}
 }
 

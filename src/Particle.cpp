@@ -3,7 +3,7 @@
 Particle::Particle() {
 	alive_ = true;
 	life_ = 1.0f;
-	fade_ = 0.1f;
+	fade_ = 0.01f;
 	position_ = glm::vec3(0.0f);
 	direction_= glm::vec3(0.0f);
 }
@@ -25,8 +25,17 @@ void Particle::live() {
 }
 
 void Particle::decreaseLife() {
-	life_-= fade_;
+	life_ -= fade_;
 	if (life_ <= 0) {
+		life_ = 0;
 		kill();
 	}
+}
+
+glm::vec3 Particle::getPosition() {
+	return position_;
+}
+
+float Particle::getLife() {
+	return life_;
 }

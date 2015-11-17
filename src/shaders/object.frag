@@ -5,6 +5,7 @@ uniform vec3 cameraPos;
 
 uniform vec3 lightColor;
 uniform vec3 objectColor;
+uniform int objectHasTex;
 
 uniform float ambient;
 uniform vec3 diffusePos;
@@ -24,19 +25,6 @@ vec3 getSphericalCoord(vec3 cartesianCoord){
 	float phi = acos(cartesianCoord.z/rho);
 	float theta = atan(cartesianCoord.y, cartesianCoord.x);
 	return vec3(rho, phi, theta);
-}
-
-vec2 sphericalMapping(vec3 cartesianCoord){
-	float m = 2 * length(cartesianCoord);
-	float u = cartesianCoord.x / m + 0.5f;
-	float v = cartesianCoord.y / m + 0.5f;
-	return vec2(u, v);
-}
-
-vec2 latitudeMapping(vec3 cartesianCoord){
-	float u = (atan(cartesianCoord.x / cartesianCoord.z) + M_PI) / (2 * M_PI);
-	float v = (asin(cartesianCoord.y) + M_PI / 2) / M_PI;
-	return vec2(u, v);
 }
 
 void main (void) {
@@ -60,8 +48,12 @@ void main (void) {
 	//texColor = texture(tex, latitudeMapping(objPos));
 
 	if (renderStyle == 0) {
-		color = vec4((ambient + diffuse) * vec3(texColor) + specular, 1.0f);
-		/*color = vec4((ambient + diffuse + specular) * objectColor, 1.0f);*/
+		if (objectHasTex == 1) {
+			color = vec4((ambient + diffuse) * vec3(texColor) + specular, 1.0f);
+		}
+		else {
+		color = vec4((ambient + diffuse) * objectColor + specular, 1.0f);
+		}
 	}
 	else if (renderStyle == 1) {
 		if (abs(dot(viewDir, norm)) < 0.2) {

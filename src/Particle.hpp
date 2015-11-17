@@ -12,6 +12,9 @@ public:
 	void live();
 	void decreaseLife();
 
+	glm::vec3 getPosition();
+	float getLife();
+
 private:
 	bool alive_;
 	float life_;
