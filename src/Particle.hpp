@@ -13,10 +13,12 @@ public:
 	void decreaseLife();
 
 	glm::vec3 getPosition();
+	float getLifeMax();
 	float getLife();
 
 private:
 	bool alive_;
+	float lifeMax_;
 	float life_;
 	float fade_;
 	glm::vec3 position_;
