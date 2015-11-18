@@ -20,7 +20,7 @@ Scene::Scene(float ambient, Light light) : light_(light) {
 
 void Scene::initApple() {
 	appleMesh_ = Object3D(
-		"res/obj/apple.obj",
+		"res/obj/apple.ctm",
 		glm::vec3(1.0f, 0.0f, 0.0f),
 		glm::vec3(1.0f, 0.0f, 0.0f)
 	);

@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 
 #include "Object3D.hpp"
+#include <openctmpp.h>
 
 Object3D::Object3D() {}
 
@@ -35,43 +36,37 @@ void Object3D::init(std::string filename) {
 }
 
 void Object3D::readMesh(std::string filename) {
-	std::ifstream ifs(filename.c_str(), std::ios::in);
+	try{
+		// Create a new OpenCTM importer object
+		CTMimporter ctm;
+		// Load the OpenCTM file
+		ctm.Load(filename.c_str());
+		// Access the mesh data
 
-	if (!ifs) {
-		std::cerr << filename << " does not exist." << std::endl;
-		exit(1);
-	}
+		CTMuint vertCount = ctm.GetInteger(CTM_VERTEX_COUNT);
+		const CTMfloat* vertices = ctm.GetFloatArray(CTM_VERTICES);
+		CTMuint triCount = ctm.GetInteger(CTM_TRIANGLE_COUNT);
+		const CTMuint* indices = ctm.GetIntegerArray(CTM_INDICES);
 
-	std::string line;
-	while (getline(ifs, line)) {
-		std::stringstream ss(line);
-
-		std::string elementType;
-		ss >> elementType;
-
-		if (elementType == "v") {
+		for(int i=0; i<3*vertCount; i+=3){
 			glm::vec3 v;
-			ss >> v.x;
-			ss >> v.y;
-			ss >> v.z;
-			glm::normalize(v);
+			v.x = vertices[i];
+			v.y = vertices[i+1];
+			v.z = vertices[i+2];
 			vertices_.push_back(v);
 		}
-		else if (elementType == "f") {
-			GLuint value;
-			while(ss >> value) {
-				value--;
-				indices_.push_back(value);
-			}
+		for(int i=0; i < 3*triCount; i+=3){
+			indices_.push_back(indices[i]);
+			indices_.push_back(indices[i+1]);
+			indices_.push_back(indices[i+2]);
 		}
-		else if (elementType == "vn") {
-			glm::vec3 vn;
-			ss >> vn.x;
-			ss >> vn.y;
-			ss >> vn.z;
-			glm::normalize(vn);
-			normals_.push_back(vn);
-		}
+
+		// Deal with the mesh (e.g. transcode it to our
+		// internal representation)
+		// ...
+	}catch(std::exception &e){
+		std::cout << "Error:" << e.what() << std::endl;
+		exit(1);
 	}
 }
 
@@ -108,7 +103,7 @@ void Object3D::computeNormals() {
 		normals_[face[1]] += faceNormal;
 		normals_[face[2]] += faceNormal;
 	}
-	
+
 	normalizeNormals();
 }
 

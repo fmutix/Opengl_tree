@@ -96,7 +96,7 @@ void mousedrag(int x, int y) {
 	float vx = (float) dx / screen.getWidth();
 	float vy = (float) dy / screen.getHeight();
 	camera.rotate(vx, vy);
-	
+
 	glutPostRedisplay();
 }
 
@@ -208,7 +208,7 @@ void display() {
 	lag += deltaTime;
 	startTime = currentTime;
 	if (lag > MS_FRAME) {
-		scene.rotateLight(0.01f * speed * deltaTime, glm::vec3(0.05f, 0.0f, 0.0f));
+//		scene.rotateLight(0.01f * speed * deltaTime, glm::vec3(0.05f, 0.0f, 0.0f));
 		lag -= MS_FRAME;
 	}
 
@@ -252,7 +252,7 @@ void initResources() {
 	objectShader.init("src/shaders/object.vs", "src/shaders/object.frag");
 	lightShader.init("src/shaders/light.vs", "src/shaders/light.frag");
 	skyboxShader.init("src/shaders/skybox.vs", "src/shaders/skybox.frag");
-	
+
 	normalShader.init(
 		"src/shaders/normals.vs", "src/shaders/normals.frag",
 		"src/shaders/normals.gs"
@@ -327,7 +327,7 @@ int main(int argc, char* argv[]) {
 	initLibraries(argc, argv);
 
 	light = Light(
-		"res/obj/cube.obj",
+		"res/obj/cube.ctm",
 		glm::vec3(0.5f, 0.5f, 0.5f),
 		1.0f,
 		glm::vec3(1.0f, 1.0f, 1.0f),
