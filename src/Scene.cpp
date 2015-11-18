@@ -34,7 +34,7 @@ void Scene::initParticles() {
 			randBounded(-2, 2)
 		);
 		float fade = randBounded(0.0001f, 0.001f);
-		particles_.push_back(Particle(0.2f, fade, position));
+		particles_.push_back(Particle(0.2f, 1.0f, fade, position));
 	}
 }
 
@@ -68,15 +68,14 @@ void Scene::add(Object3D& obj) {
 
 void Scene::displayObjects(Shader& shader) {
 	for (Particle& p : particles_) {
-		if (p.getLife() > 0) {
-			p.decreaseLife();
+		p.process();
+		if (p.getAlive()) {
+			shader.setUniform("objectColor", appleMesh_.getColor());
+			shader.setUniform("objectPos", p.getPosition());
+			shader.setUniform("objectScale", p.getAgeMax() - p.getAge());
+			shader.setUniform("objectHasTex", (GLuint)appleMesh_.hasTexture());
+			appleMesh_.display();
 		}
-		p.fall();
-		shader.setUniform("objectColor", appleMesh_.getColor());
-		shader.setUniform("objectPos", p.getPosition());
-		shader.setUniform("objectScale", p.getLifeMax() - p.getLife());
-		shader.setUniform("objectHasTex", (GLuint)appleMesh_.hasTexture());
-		appleMesh_.display();
 	}
 }
 

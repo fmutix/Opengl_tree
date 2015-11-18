@@ -2,54 +2,95 @@
 
 Particle::Particle() {
 	alive_ = true;
-	lifeMax_ = 1.0f;
-	life_ = 1.0f;
+	ageMax_ = 1.0f;
+	age_ = 1.0f;
+	idle_ = 1.0f;
+	idleMax_ = 1.0f;
 	fade_ = 0.01f;
 	position_ = glm::vec3(0.0f);
 	direction_= glm::vec3(0.0f, -0.05f, 0.0f);
 }
 
-Particle::Particle(float life, float fade, glm::vec3 position) {
+Particle::Particle(float age, float idle, float fade, glm::vec3 position) {
 	alive_ = true;
-	lifeMax_ = life;
-	life_ = life;
+	ageMax_ = age;
+	age_ = age;
+	idle_ = idle;
+	idleMax_ = idle;
 	fade_ = fade;
 	position_ = position;
 	direction_= glm::vec3(0.0f, -0.005f, 0.0f);
 }
 
+int Particle::randBounded(int min, int max) {
+	int random = (float) rand() / (float) RAND_MAX;
+	int delta = max - min;
+
+	return min + (random * delta);
+}
+
+void Particle::process() {
+	if (alive_) {
+		if (state_ == 0) {
+			decreaseAge();
+		}
+		else if (state_ == 1) {
+			fall();
+		}
+		else {
+			decreaseIdle();
+		}
+	}
+}
+
 void Particle::fall() {
-	if (grown_) {
-		position_ += direction_;
+	position_ += direction_;
+	if (position_.y <= 0) {
+		position_.y = 0.0f;
+		state_ = 2;
 	}
 }
 
 void Particle::kill() {
 	alive_ = false;
-	life_ = 0.0f;
+	state_ = -1;
 }
 
 void Particle::live() {
 	alive_ = true;
-	life_ = lifeMax_;
+	age_ = ageMax_;
+	idle_ = idleMax_;
+	state_ = 0;
 }
 
-void Particle::decreaseLife() {
-	life_ -= fade_;
-	if (life_ <= 0) {
-		kill();
-		grown_ = true;
+void Particle::decreaseAge() {
+	age_ -= fade_;
+	if (age_ <= 0) {
+		age_ = 0.0f;
+		state_ = 1;
 	}
+}
+
+void Particle::decreaseIdle() {
+	idle_ -= fade_;
+	if (idle_ <= 0) {
+		idle_ = 0.0f;
+		kill();
+	}
+}
+
+bool Particle::getAlive() {
+	return alive_;
 }
 
 glm::vec3 Particle::getPosition() {
 	return position_;
 }
 
-float Particle::getLifeMax() {
-	return lifeMax_;
+float Particle::getAgeMax() {
+	return ageMax_;
 }
 
-float Particle::getLife() {
-	return life_;
+float Particle::getAge() {
+	return age_;
 }

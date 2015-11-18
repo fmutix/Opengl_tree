@@ -6,22 +6,28 @@
 class Particle {
 public:
 	Particle();
-	Particle(float life, float fade, glm::vec3 position);
+	Particle(float age, float idle, float fade, glm::vec3 position);
 
+	int randBounded(int min, int max);
+	void process();
 	void fall();
 	void kill();
 	void live();
-	void decreaseLife();
+	void decreaseAge();
+	void decreaseIdle();
 
+	bool getAlive();
 	glm::vec3 getPosition();
-	float getLifeMax();
-	float getLife();
+	float getAgeMax();
+	float getAge();
 
 private:
 	bool alive_;
-	bool grown_ = false;
-	float lifeMax_;
-	float life_;
+	int state_ = 0; // 0: growing, 1: falling, 2: felt
+	float ageMax_;
+	float age_;
+	float idleMax_;
+	float idle_;
 	float fade_;
 	glm::vec3 position_;
 	glm::vec3 direction_;
