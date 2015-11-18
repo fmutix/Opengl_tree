@@ -8,7 +8,7 @@ public:
 	Particle();
 	Particle(float age, float idle, float fade, glm::vec3 position);
 
-	int randBounded(int min, int max);
+	float randBounded(float min, float max);
 	void process();
 	void fall();
 	void kill();

@@ -76,6 +76,9 @@ void Scene::displayObjects(Shader& shader) {
 			shader.setUniform("objectHasTex", (GLuint)appleMesh_.hasTexture());
 			appleMesh_.display();
 		}
+		else {
+			p.live();
+		}
 	}
 }
 

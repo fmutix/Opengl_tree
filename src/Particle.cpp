@@ -22,9 +22,9 @@ Particle::Particle(float age, float idle, float fade, glm::vec3 position) {
 	direction_= glm::vec3(0.0f, -0.005f, 0.0f);
 }
 
-int Particle::randBounded(int min, int max) {
-	int random = (float) rand() / (float) RAND_MAX;
-	int delta = max - min;
+float Particle::randBounded(float min, float max) {
+	float random = (float) rand() / (float) RAND_MAX;
+	float delta = max - min;
 
 	return min + (random * delta);
 }
@@ -60,6 +60,11 @@ void Particle::live() {
 	alive_ = true;
 	age_ = ageMax_;
 	idle_ = idleMax_;
+	position_ = glm::vec3(
+		randBounded(-2, 2),
+		randBounded(0.5, 1.0),
+		randBounded(-2, 2)
+	);
 	state_ = 0;
 }
 
