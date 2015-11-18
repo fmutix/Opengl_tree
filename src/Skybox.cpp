@@ -16,7 +16,7 @@ Skybox::Skybox(glm::vec3 position) {
 	cubeTextures_.push_back("res/textures/bottom.jpg");
 	cubeTextures_.push_back("res/textures/back.jpg");
 	cubeTextures_.push_back("res/textures/front.jpg");
-	init("res/obj/cube.obj");
+	init("res/obj/cube.ctm");
 }
 
 void Skybox::init(std::string filename) {
