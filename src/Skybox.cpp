@@ -9,7 +9,7 @@ Skybox::Skybox() {}
 
 Skybox::Skybox(glm::vec3 position) {
 	position_ = position;
-	scale_ = 15.0;
+	scale_ = 20.0;
 	cubeTextures_.push_back("res/textures/right.jpg");
 	cubeTextures_.push_back("res/textures/left.jpg");
 	cubeTextures_.push_back("res/textures/top.jpg");

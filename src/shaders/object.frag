@@ -52,15 +52,20 @@ void main (void) {
 			color = vec4((ambient + diffuse) * vec3(texColor) + specular, 1.0f);
 		}
 		else {
-		color = vec4((ambient + diffuse) * objectColor + specular, 1.0f);
+			color = vec4((ambient + diffuse) * objectColor + specular, 1.0f);
 		}
 	}
 	else if (renderStyle == 1) {
-		if (abs(dot(viewDir, norm)) < 0.2) {
+		if (abs(dot(viewDir, norm)) < 0.4) {
 			color = vec4(0.0f, 0.0f, 0.0f, 0.0f);
 		}
 		else {
-			color = vec4((ambient + diffuse) * vec3(texColor) + specular, 1.0f);
+			if (objectHasTex == 1) {
+				color = vec4((ambient + diffuse) * vec3(texColor) + specular, 1.0f);
+			}
+			else {
+				color = vec4((ambient + diffuse) * objectColor + specular, 1.0f);
+			}
 		}
 	}
 }

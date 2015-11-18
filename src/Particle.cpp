@@ -6,7 +6,7 @@ Particle::Particle() {
 	life_ = 1.0f;
 	fade_ = 0.01f;
 	position_ = glm::vec3(0.0f);
-	direction_= glm::vec3(0.0f);
+	direction_= glm::vec3(0.0f, -0.05f, 0.0f);
 }
 
 Particle::Particle(float life, float fade, glm::vec3 position) {
@@ -15,7 +15,13 @@ Particle::Particle(float life, float fade, glm::vec3 position) {
 	life_ = life;
 	fade_ = fade;
 	position_ = position;
-	direction_= glm::vec3(0.0f);
+	direction_= glm::vec3(0.0f, -0.005f, 0.0f);
+}
+
+void Particle::fall() {
+	if (grown_) {
+		position_ += direction_;
+	}
 }
 
 void Particle::kill() {
@@ -32,6 +38,7 @@ void Particle::decreaseLife() {
 	life_ -= fade_;
 	if (life_ <= 0) {
 		kill();
+		grown_ = true;
 	}
 }
 

@@ -8,6 +8,7 @@ public:
 	Particle();
 	Particle(float life, float fade, glm::vec3 position);
 
+	void fall();
 	void kill();
 	void live();
 	void decreaseLife();
@@ -18,6 +19,7 @@ public:
 
 private:
 	bool alive_;
+	bool grown_ = false;
 	float lifeMax_;
 	float life_;
 	float fade_;
