@@ -1,6 +1,7 @@
 #include <glm/gtx/rotate_vector.hpp>
 
 #include "Scene.hpp"
+#include "Utils.hpp"
 
 const int NB_PARTICLE = 20;
 
@@ -29,20 +30,13 @@ void Scene::initApple() {
 void Scene::initParticles() {
 	for (int i = 0; i < NB_PARTICLE; i++) {
 		glm::vec3 position(
-			randBounded(-2, 2),
-			randBounded(0.5, 1.0),
-			randBounded(-2, 2)
+			Utils::randBounded(-2, 2),
+			Utils::randBounded(0.5, 1.0),
+			Utils::randBounded(-2, 2)
 		);
-		float fade = randBounded(0.0001f, 0.001f);
+		float fade = Utils::randBounded(0.0001f, 0.001f);
 		particles_.push_back(Particle(0.2f, 1.0f, fade, position));
 	}
-}
-
-float Scene::randBounded(float min, float max) {
-	float random = (float) rand() / (float) RAND_MAX;
-	float delta = max - min;
-
-	return min + (random * delta);
 }
 
 void Scene::uniformObjects(Shader& shader) {

@@ -19,7 +19,6 @@ public:
 	void initApple();
 	void initParticles();
 
-	float randBounded(float min, float max);
 	void uniformObjects(Shader& shader);
 	void uniformLight(Shader& shader);
 

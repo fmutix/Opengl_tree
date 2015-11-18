@@ -1,4 +1,5 @@
 #include "Particle.hpp"
+#include "Utils.hpp"
 
 Particle::Particle() {
 	alive_ = true;
@@ -20,13 +21,6 @@ Particle::Particle(float age, float idle, float fade, glm::vec3 position) {
 	fade_ = fade;
 	position_ = position;
 	direction_= glm::vec3(0.0f, -0.005f, 0.0f);
-}
-
-float Particle::randBounded(float min, float max) {
-	float random = (float) rand() / (float) RAND_MAX;
-	float delta = max - min;
-
-	return min + (random * delta);
 }
 
 void Particle::process() {
@@ -61,9 +55,9 @@ void Particle::live() {
 	age_ = ageMax_;
 	idle_ = idleMax_;
 	position_ = glm::vec3(
-		randBounded(-2, 2),
-		randBounded(0.5, 1.0),
-		randBounded(-2, 2)
+		Utils::randBounded(-2, 2),
+		Utils::randBounded(0.5, 1.0),
+		Utils::randBounded(-2, 2)
 	);
 	state_ = 0;
 }
