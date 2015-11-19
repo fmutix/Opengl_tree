@@ -226,6 +226,12 @@ void display() {
 		if (seasonTimer == seasonTime) {
 			season = (season + 1) % 4;
 			seasonTimer = 0;
+			if (season == 1) {
+				scene.applesReady();
+			}
+			else if (season == 3) {
+				scene.leavesReady();
+			}
 		}
 //		scene.rotateLight(0.01f * speed * deltaTime, glm::vec3(0.05f, 0.0f, 0.0f));
 		lag -= MS_FRAME;

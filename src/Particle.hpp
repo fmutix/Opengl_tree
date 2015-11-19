@@ -15,12 +15,15 @@ public:
 	void decreaseAge();
 	void decreaseIdle();
 
+	bool getReady();
+	void setReady(bool ready);
 	bool getAlive();
 	glm::vec3 getPosition();
 	float getAgeMax();
 	float getAge();
 
 private:
+	bool ready_;
 	bool alive_;
 	int state_ = 0; // 0: growing, 1: falling, 2: felt
 	float ageMax_;

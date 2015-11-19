@@ -74,6 +74,18 @@ void Scene::uniformLight(Shader& shader) {
 	shader.setUniform("objectScale", light_.getScale());
 }
 
+void Scene::applesReady() {
+	for (Particle& p : apples_) {
+		p.setReady(true);
+	}
+}
+
+void Scene::leavesReady() {
+	for (Particle& p : leaves_) {
+		p.setReady(true);
+	}
+}
+
 void Scene::rotateLight(float angle, glm::vec3 axis) {
 	light_.rotate(angle, axis);
 }
@@ -93,7 +105,7 @@ void Scene::displayObjects(Shader& shader, int season) {
 			shader.setUniform("objectHasTex", (GLuint)appleMesh_.hasTexture());
 			appleMesh_.display();
 		}
-		else if (season == 3) {
+		else if (season == 3 and p.getReady()) {
 			p.live();
 		}
 	}
@@ -106,7 +118,7 @@ void Scene::displayObjects(Shader& shader, int season) {
 			shader.setUniform("objectHasTex", (GLuint)leafMesh_.hasTexture());
 			appleMesh_.display();
 		}
-		else if (season	== 1){
+		else if (season	== 1 and p.getReady()){
 			p.live();
 		}
 	}

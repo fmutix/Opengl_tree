@@ -22,6 +22,8 @@ public:
 	void uniformObjects(Shader& shader);
 	void uniformLight(Shader& shader);
 
+	void applesReady();
+	void leavesReady();
 	void rotateLight(float angle, glm::vec3 axis);
 
 	void add(Object3D& obj);

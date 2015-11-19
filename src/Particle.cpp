@@ -2,6 +2,7 @@
 #include "Utils.hpp"
 
 Particle::Particle() {
+	ready_ = true;
 	alive_ = false;
 	ageMax_ = 1.0f;
 	age_ = 1.0f;
@@ -13,6 +14,7 @@ Particle::Particle() {
 }
 
 Particle::Particle(float age, float idle, float fade, glm::vec3 position) {
+	ready_ = true;
 	alive_ = false;
 	ageMax_ = age;
 	age_ = age;
@@ -46,6 +48,7 @@ void Particle::fall() {
 }
 
 void Particle::kill() {
+	ready_ = false;
 	alive_ = false;
 	state_ = -1;
 }
@@ -76,6 +79,14 @@ void Particle::decreaseIdle() {
 		idle_ = 0.0f;
 		kill();
 	}
+}
+
+bool Particle::getReady() {
+	return ready_;
+}
+
+void Particle::setReady(bool ready) {
+	ready_ = ready;
 }
 
 bool Particle::getAlive() {
