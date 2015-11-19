@@ -60,6 +60,16 @@ void updateWorldMatrix(Shader& shader) {
 	shader.setUniform("world", world);
 }
 
+void updateMaxDayNight(Shader& shader) {
+	glm::vec3 pos = scene.getLight().getDiffusePosition();
+	shader.setUniform("maxDayNight", pos.y);
+}
+
+void updateDayNight(Shader& shader) {
+	glm::vec3 pos = scene.getLight().getDiffusePosition();
+	shader.setUniform("dayNight", pos.y);
+}
+
 void updateRenderStyle() {
 	updateRenderStyle((renderStyle + 1) % 2);
 }
@@ -208,12 +218,13 @@ void display() {
 	lag += deltaTime;
 	startTime = currentTime;
 	if (lag > MS_FRAME) {
-//		scene.rotateLight(0.01f * speed * deltaTime, glm::vec3(0.05f, 0.0f, 0.0f));
+		scene.rotateLight(0.01f * speed * deltaTime, glm::vec3(0.05f, 0.0f, 0.0f));
 		lag -= MS_FRAME;
 	}
 
 	objectShader.use();
 	updateWorldMatrix(objectShader);
+	updateDayNight(objectShader);
 	camera.uniformViewMatrix(objectShader);
 	camera.uniformPosition(objectShader);
 	scene.uniformObjects(objectShader);
@@ -221,6 +232,7 @@ void display() {
 
 	skyboxShader.use();
 	updateWorldMatrix(skyboxShader);
+	updateDayNight(skyboxShader);
 	camera.uniformViewMatrix(skyboxShader);
 	camera.uniformPosition(skyboxShader);
 	skybox.setUniform(skyboxShader);
@@ -261,12 +273,14 @@ void initResources() {
 	objectShader.use();
 	updateRenderStyle(0);
 	screen.uniformProjectionMatrix(objectShader);
+	updateMaxDayNight(objectShader);
 
 	lightShader.use();
 	screen.uniformProjectionMatrix(lightShader);
 
 	skyboxShader.use();
 	screen.uniformProjectionMatrix(skyboxShader);
+	updateMaxDayNight(skyboxShader);
 
 	normalShader.use();
 	screen.uniformProjectionMatrix(normalShader);
@@ -327,8 +341,8 @@ int main(int argc, char* argv[]) {
 	initLibraries(argc, argv);
 
 	light = Light(
-		"res/obj/sphere.ctm",
-		glm::vec3(0.5f, 0.5f, 0.5f),
+		"res/obj/apple.ctm",
+		glm::vec3(0.0f, 1.5f, 0.0f),
 		1.0f,
 		glm::vec3(1.0f, 1.0f, 1.0f),
 		glm::vec3(1.0f, 1.0f, 1.0f)

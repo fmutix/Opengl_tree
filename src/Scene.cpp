@@ -90,3 +90,7 @@ void Scene::displayObjects(Shader& shader) {
 void Scene::displayLight() {
 	light_.display();
 }
+
+Light Scene::getLight() {
+	return light_;
+}
