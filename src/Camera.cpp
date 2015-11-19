@@ -18,7 +18,7 @@ Camera::Camera(glm::vec3 position, glm::vec3 direction, float cameraSpeed):
 void Camera::updateView(){
 	viewMatrix_ = glm::lookAt(
 		position_,
-		direction_,
+		position_ + direction_,
 		glm::vec3(0,1,0)
 	);
 }

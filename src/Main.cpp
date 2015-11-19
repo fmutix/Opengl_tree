@@ -178,16 +178,16 @@ void keyboard(unsigned char key, int, int) {
 void keyboard2(int key, int, int) {
 	switch(key) {
 	case GLUT_KEY_UP:
-		camera.move(glm::vec2(0,0.1));
+		camera.move(glm::vec2(0,1));
 		break;
 	case GLUT_KEY_DOWN:
-		camera.move(glm::vec2(0,-0.1));
+		camera.move(glm::vec2(0,-1));
 		break;
 	case GLUT_KEY_LEFT:
-		camera.move(glm::vec2(-0.1,0));
+		camera.move(glm::vec2(-1,0));
 		break;
 	case GLUT_KEY_RIGHT:
-		camera.move(glm::vec2(0.1,0));
+		camera.move(glm::vec2(1,0));
 		break;
 	}
 	glutPostRedisplay();
