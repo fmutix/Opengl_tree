@@ -2,18 +2,6 @@
 
 #include "Camera.hpp"
 
-Camera::Camera(
-	const glm::vec3& position, const glm::vec3& up,
-	const glm::vec3& forward) {
-	this->position_ = position;
-	this->up_ = up;
-	this->forward_ = forward;
-
-	initPosition_ = position;
-	initUp_ = up;
-	initForward_ = forward;
-}
-
 Camera::Camera(glm::vec3 position, glm::vec3 direction, float cameraSpeed):
 	position_(position),
 	direction_(direction),
@@ -48,34 +36,17 @@ void Camera::move(glm::vec2 direction){
 	}
 }
 
+void Camera::rotate(float pitch, float yaw){
+	pitch_ += pitch;
+	yaw_ += yaw;
+	setRotation(pitch_, yaw_);
+}
 
-void Camera::rotate(float theta, float phi){
+void Camera::setRotation(float theta, float phi){
 	direction_.x = speed_ * cos(glm::radians(phi)) * cos(glm::radians(theta));
 	direction_.y = speed_ * sin(glm::radians(phi));
 	direction_.z = speed_ * cos(glm::radians(phi)) * sin(glm::radians(theta));
 	direction_ = glm::normalize(direction_);
-}
-
-void Camera::rotate(float angle, glm::vec3 rotationAxis) {
-	position_ = glm::rotate(position_, angle, rotationAxis);
-	forward_ = glm::normalize(glm::rotate(forward_, angle, rotationAxis));
-}
-
-void Camera::moveForwardBackward(float value) {
-	position_ += forward_ * value;
-}
-
-void Camera::moveLeftRight(float value) {
-	forward_ = glm::normalize(glm::rotate(forward_, value, up_));
-}
-
-/**
- * Resets the camera's vectors to the values they were initialized to.
- */
-void Camera::reset() {
-	position_ = initPosition_;
-	up_ = initUp_;
-	forward_ = initForward_;
 }
 
 /**
