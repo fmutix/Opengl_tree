@@ -22,10 +22,6 @@ public:
 	void uniformPosition(Shader& shader);
 
 	glm::mat4 getViewMatrix();
-	glm::vec3 getPosition();
-	glm::vec3 getUp();
-	glm::vec3 getForward();
-	glm::vec3 getRight();
 
 private:
 	glm::vec3 position_;
