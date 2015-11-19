@@ -24,7 +24,7 @@ private:
 	glm::vec3 direction_;
 	float speed_;
 	glm::mat4 viewMatrix_;
-	float pitch_ = -90;
+	float pitch_ = 0;
 	float yaw_ = 0;
 
 	glm::vec3 initPosition_;

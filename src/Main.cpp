@@ -31,8 +31,8 @@ int seasonTime = 3;
 glm::mat4 world(1.0f);
 
 Camera camera(
-	glm::vec3(0.0f, 0.5f, 3.0f), // position
-	glm::vec3(0.0f, 0.0f, -1.0f) // direction (forward)
+	glm::vec3(-3.0f, 0.5f, 0.0f), // position
+	glm::vec3(1.0f, 0.0f, 0.0f) // direction (forward)
 );
 
 Screen screen(
@@ -159,8 +159,8 @@ void keyboard(unsigned char key, int, int) {
 		break;
 	case 'r':
 		camera = Camera(
-			glm::vec3(0.0f, 0.0f, 3.0f), // position
-			glm::vec3(0.0f, 0.0f, -1.0f) // direction (forward)
+			glm::vec3(-3.0f, 0.5f, 0.0f), // position
+			glm::vec3(1.0f, 0.0f, 0.0f) // direction (forward)
 		);
 		break;
 	case 'p':
