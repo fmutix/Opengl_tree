@@ -7,36 +7,29 @@
 
 class Camera {
 public:
-	Camera(
-		const glm::vec3& position, const glm::vec3& up,
-		const glm::vec3& forward
-	);
+	Camera(glm::vec3 position, glm::vec3 direction, float cameraSpeed = 0.1);
 
-	glm::vec3 rotate(float vx, float vy);
-	void rotate(float angle, glm::vec3 rotationAxis);
-	void moveForwardBackward(float value);
-	void moveLeftRight(float value);
-	void reset();
+	void updateView();
+	void move(glm::vec2 direction);
+	void rotate(float pitch, float yaw);
+	void setRotation(float theta, float phi);
 
 	void uniformViewMatrix(Shader& shader);
 	void uniformPosition(Shader& shader);
 
 	glm::mat4 getViewMatrix();
-	glm::vec3 getPosition();
-	glm::vec3 getUp();
-	glm::vec3 getForward();
-	glm::vec3 getRight();
 
 private:
 	glm::vec3 position_;
-	glm::vec3 up_;
-	glm::vec3 forward_;
+	glm::vec3 direction_;
+	float speed_;
+	glm::mat4 viewMatrix_;
+	float pitch_ = -90;
+	float yaw_ = 0;
 
 	glm::vec3 initPosition_;
 	glm::vec3 initUp_;
 	glm::vec3 initForward_;
-
-	glm::vec3 right_;
 };
 
 #endif // OBJECT3D_HPP

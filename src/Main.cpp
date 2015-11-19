@@ -29,8 +29,7 @@ glm::mat4 world(1.0f);
 
 Camera camera(
 	glm::vec3(0.0f, 0.0f, 3.0f), // position
-	glm::vec3(0.0f, 1.0f, 0.0f), // up
-	glm::vec3(0.0f, 0.0f, -1.0f) // forward
+	glm::vec3(0.0f, 0.0f, -1.0f) // direction (forward)
 );
 
 Screen screen(
@@ -107,19 +106,17 @@ void mousedrag(int x, int y) {
 	if (dx == 0 && dy == 0) return;
 	if (button_pressed == 0) return;
 
-	float vx = (float) dx / screen.getWidth();
-	float vy = (float) dy / screen.getHeight();
-	camera.rotate(vx, vy);
+	camera.rotate(dx,dy);
 
 	glutPostRedisplay();
 }
 
 void mouseWheel(int, int dir, int, int) {
 	if (dir > 0) {
-		camera.moveForwardBackward(0.02f);
+		camera.move(glm::vec2(0,1));
 	}
 	else {
-		camera.moveForwardBackward(-0.02f);
+		camera.move(glm::vec2(0,-1));
 	}
 
 	glutPostRedisplay();
@@ -158,7 +155,10 @@ void keyboard(unsigned char key, int, int) {
 		scene.rotateLight(0.05f, glm::vec3(0.05f, 0.f, 0.f));
 		break;
 	case 'r':
-		camera.reset();
+		camera = Camera(
+			glm::vec3(0.0f, 0.0f, 3.0f), // position
+			glm::vec3(0.0f, 0.0f, -1.0f) // direction (forward)
+		);
 		break;
 	case 'p':
 		if (speed + SPEED_STEP < 5) {
@@ -180,16 +180,16 @@ void keyboard(unsigned char key, int, int) {
 void keyboard2(int key, int, int) {
 	switch(key) {
 	case GLUT_KEY_UP:
-		camera.moveForwardBackward(0.1f);
+		camera.move(glm::vec2(0,1));
 		break;
 	case GLUT_KEY_DOWN:
-		camera.moveForwardBackward(-0.1f);
+		camera.move(glm::vec2(0,-1));
 		break;
 	case GLUT_KEY_LEFT:
-		camera.moveLeftRight(0.1f);
+		camera.move(glm::vec2(-1,0));
 		break;
 	case GLUT_KEY_RIGHT:
-		camera.moveLeftRight(-0.1f);
+		camera.move(glm::vec2(1,0));
 		break;
 	}
 	glutPostRedisplay();
