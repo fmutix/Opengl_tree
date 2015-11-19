@@ -28,7 +28,7 @@ int seasonTimer = 0;
 glm::mat4 world(1.0f);
 
 Camera camera(
-	glm::vec3(0.0f, 0.0f, 3.0f), // position
+	glm::vec3(0.0f, 0.5f, 3.0f), // position
 	glm::vec3(0.0f, 0.0f, -1.0f) // direction (forward)
 );
 
