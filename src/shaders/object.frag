@@ -51,25 +51,16 @@ void main (void) {
 
 	float tmp = -1.0 + dayNight / maxDayNight;
 	vec3 dayFactor = vec3(tmp, tmp, tmp);
-	if (renderStyle == 0) {
-		if (objectHasTex == 1) {
-			color = vec4((ambient + diffuse) * vec3(texColor) + specular + dayFactor, 1.0f);
-		}
-		else {
-			color = vec4((ambient + diffuse) * objectColor + specular + dayFactor, 1.0f);
-		}
+	vec3 objectTextureColor;
+	if(objectHasTex == 1) {
+		objectTextureColor = vec3(texColor);
+	}else{
+		objectTextureColor = objectColor;
 	}
-	else if (renderStyle == 1) {
-		if (abs(dot(viewDir, norm)) < 0.4) {
+
+	if(renderStyle == 1 && abs(dot(viewDir, norm)) < 0.4){
 			color = vec4(0.0f, 0.0f, 0.0f, 0.0f);
-		}
-		else {
-			if (objectHasTex == 1) {
-				color = vec4((ambient + diffuse) * vec3(texColor) + specular + dayFactor, 1.0f);
-			}
-			else {
-				color = vec4((ambient + diffuse) * objectColor + specular + dayFactor, 1.0f);
-			}
-		}
+	}else{
+			color = vec4((ambient + diffuse) * objectTextureColor + specular + dayFactor, 1.0f);
 	}
 }
