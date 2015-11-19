@@ -226,10 +226,6 @@ void display() {
 	startTime = currentTime;
 	if (lag > MS_FRAME) {
 		scene.rotateLight(0.01f * speed * deltaTime, glm::vec3(0.05f, 0.0f, 0.0f));
-		currentSunHeight = scene.getLight().getDiffusePosition().y;
-		std::cout << lastSunHeight << std::endl;
-		std::cout << currentSunHeight << std::endl;
-		std::cout << std::endl;
 		if (lastSunHeight < 0 and currentSunHeight >= 0) {
 			dayTick += 0.5f;
 		}
