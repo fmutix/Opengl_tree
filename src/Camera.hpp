@@ -16,6 +16,7 @@ public:
 
 	void updateView();
 	void move(glm::vec2 direction);
+	void rotate(float theta, float phi);
 	void rotate(float angle, glm::vec3 rotationAxis);
 	void moveForwardBackward(float value);
 	void moveLeftRight(float value);

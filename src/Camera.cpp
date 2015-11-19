@@ -48,6 +48,14 @@ void Camera::move(glm::vec2 direction){
 	}
 }
 
+
+void Camera::rotate(float theta, float phi){
+	direction_.x = speed_ * cos(glm::radians(phi)) * cos(glm::radians(theta));
+	direction_.y = speed_ * sin(glm::radians(phi));
+	direction_.z = speed_ * cos(glm::radians(phi)) * sin(glm::radians(theta));
+	direction_ = glm::normalize(direction_);
+}
+
 void Camera::rotate(float angle, glm::vec3 rotationAxis) {
 	position_ = glm::rotate(position_, angle, rotationAxis);
 	forward_ = glm::normalize(glm::rotate(forward_, angle, rotationAxis));
