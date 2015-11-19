@@ -42,9 +42,9 @@ void Scene::initMeshes() {
 void Scene::initParticles() {
 	for (int i = 0; i < NB_APPLE; i++) {
 		glm::vec3 position(
-			Utils::randBounded(-1, 1),
-			Utils::randBounded(0.5, 1.0),
-			Utils::randBounded(-1, 1)
+			Utils::randBounded(-1.17335, 1.1498),
+			Utils::randBounded(4.0, 7.49918),
+			Utils::randBounded(-1.45231, 1.7167)
 		);
 		float fade = Utils::randBounded(0.001f, 0.01f);
 		apples_.push_back(Particle(0.05f, 1.0f, fade, position));
@@ -52,9 +52,9 @@ void Scene::initParticles() {
 
 	for (int i = 0; i < NB_LEAF; i++) {
 		glm::vec3 position(
-			Utils::randBounded(-1, 1),
-			Utils::randBounded(0.5, 1.0),
-			Utils::randBounded(-1, 1)
+			Utils::randBounded(-1.17335, 1.1498),
+			Utils::randBounded(4.0, 7.49918),
+			Utils::randBounded(-1.45231, 1.7167)
 		);
 		float fade = Utils::randBounded(0.001f, 0.01f);
 		leaves_.push_back(Particle(0.05f, 1.0f, fade, position));

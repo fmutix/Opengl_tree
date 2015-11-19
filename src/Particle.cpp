@@ -55,9 +55,9 @@ void Particle::live() {
 	age_ = ageMax_;
 	idle_ = idleMax_;
 	position_ = glm::vec3(
-		Utils::randBounded(-2, 2),
-		Utils::randBounded(0.5, 1.0),
-		Utils::randBounded(-2, 2)
+		Utils::randBounded(-1.17335, 1.1498) * 0.2f,
+		Utils::randBounded(4.0, 7.49918) * 0.2f,
+		Utils::randBounded(-1.45231, 1.7167) * 0.2f
 	);
 	state_ = 0;
 }
