@@ -21,6 +21,10 @@ int startTime;
 int lag = 0;
 float speed = 1;
 
+int season = 0; // 0: winter, 1: spring, 2: summer, 3: fall
+int seasonTime = 100;
+int seasonTimer = 0;
+
 glm::mat4 world(1.0f);
 
 Camera camera(
@@ -218,6 +222,11 @@ void display() {
 	lag += deltaTime;
 	startTime = currentTime;
 	if (lag > MS_FRAME) {
+		seasonTimer++;
+		if (seasonTimer == seasonTime) {
+			season = (season + 1) % 4;
+			seasonTimer = 0;
+		}
 		scene.rotateLight(0.01f * speed * deltaTime, glm::vec3(0.05f, 0.0f, 0.0f));
 		lag -= MS_FRAME;
 	}

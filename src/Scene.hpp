@@ -39,7 +39,6 @@ private:
 	Object3D treeMesh_;
 	std::vector<Object3D> objects_;
 	std::vector<Particle> particles_;
-//	int season_ = 0; // 0: winter, 1: spring, 2: summer, 3: fall
 };
 
 #endif // SCENE_HPP
