@@ -59,8 +59,12 @@ void main (void) {
 	}
 
 	if(renderStyle == 1 && abs(dot(viewDir, norm)) < 0.4){
-			color = vec4(0.0f, 0.0f, 0.0f, 0.0f);
+		color = vec4(0.0f, 0.0f, 0.0f, 0.0f);
 	}else{
-			color = vec4((ambient + diffuse) * objectTextureColor + specular + dayFactor, 1.0f);
+		if(dayNight > 0){
+			color = vec4((ambient + diffuse) * objectTextureColor + specular, 1.0f);
+		}else{
+			color = vec4(ambient * objectTextureColor, 1.0f);
+		}
 	}
 }
