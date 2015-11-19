@@ -129,7 +129,7 @@ void Scene::displayObjects(Shader& shader, int season) {
 	shader.setUniform("objectScale", groundMesh_.getScale());
 	shader.setUniform("objectHasTex", (GLuint)groundMesh_.hasTexture());
 	glm::mat4 flat;
-	flat = glm::scale(flat, glm::vec3(10,0.01,10));
+	flat = glm::scale(flat, glm::vec3(100,0.01,100));
 	shader.setUniform("world", flat);
 	groundMesh_.display();
 }
