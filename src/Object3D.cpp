@@ -48,14 +48,14 @@ void Object3D::readMesh(std::string filename) {
 		CTMuint triCount = ctm.GetInteger(CTM_TRIANGLE_COUNT);
 		const CTMuint* indices = ctm.GetIntegerArray(CTM_INDICES);
 
-		for(int i=0; i<3*vertCount; i+=3){
+		for(unsigned int i = 0; i < 3 * vertCount; i+=3){
 			glm::vec3 v;
 			v.x = vertices[i];
 			v.y = vertices[i+1];
 			v.z = vertices[i+2];
 			vertices_.push_back(v);
 		}
-		for(int i=0; i < 3*triCount; i+=3){
+		for(unsigned int i = 0; i < 3 * triCount; i+=3){
 			indices_.push_back(indices[i]);
 			indices_.push_back(indices[i+1]);
 			indices_.push_back(indices[i+2]);
