@@ -21,9 +21,12 @@ int startTime;
 int lag = 0;
 float speed = 0.5;
 
+float dayTick = 0.0f;
+float lastSunHeight;
+float currentSunHeight;
+
 int season = 0; // 0: winter, 1: spring, 2: summer, 3: fall
-int seasonTime = 300;
-int seasonTimer = 0;
+int seasonTime = 3;
 
 glm::mat4 world(1.0f);
 
@@ -222,18 +225,28 @@ void display() {
 	lag += deltaTime;
 	startTime = currentTime;
 	if (lag > MS_FRAME) {
-		seasonTimer++;
-		if (seasonTimer == seasonTime) {
+		scene.rotateLight(0.01f * speed * deltaTime, glm::vec3(0.05f, 0.0f, 0.0f));
+		currentSunHeight = scene.getLight().getDiffusePosition().y;
+		std::cout << lastSunHeight << std::endl;
+		std::cout << currentSunHeight << std::endl;
+		std::cout << std::endl;
+		if (lastSunHeight < 0 and currentSunHeight >= 0) {
+			dayTick += 0.5f;
+		}
+		if (lastSunHeight > 0 and currentSunHeight <= 0) {
+			dayTick += 0.5f;
+		}
+		lastSunHeight = currentSunHeight;
+		if (dayTick == seasonTime) {
 			season = (season + 1) % 4;
-			seasonTimer = 0;
 			if (season == 1) {
 				scene.applesReady();
 			}
 			else if (season == 3) {
 				scene.leavesReady();
 			}
+			dayTick = 0.0f;
 		}
-//		scene.rotateLight(0.01f * speed * deltaTime, glm::vec3(0.05f, 0.0f, 0.0f));
 		lag -= MS_FRAME;
 	}
 
@@ -347,6 +360,7 @@ int main(int argc, char* argv[]) {
 		glm::vec3(1.0f, 1.0f, 1.0f),
 		glm::vec3(1.0f, 1.0f, 1.0f)
 	);
+	lastSunHeight = 1.5f;
 	light.setScale(0.2);
 	skybox = Skybox(glm::vec3(0.0f, 4.0f, 0.0f));
 	scene = Scene(0.1, light);
