@@ -14,12 +14,10 @@
 #include "Object3D.hpp"
 #include "Skybox.hpp"
 
-const int MS_FRAME = 16;
 const float SPEED_STEP = 0.1;
+const float timeStep = 1./200;
 
-int startTime;
-int lag = 0;
-float speed = 0.5;
+float speed = 2.0;
 
 float dayTick = 0.0f;
 float lastSunHeight;
@@ -214,18 +212,24 @@ void reshape(int width, int height) {
 	screen.uniformProjectionMatrix(normalShader);
 }
 
+double lastFrameTime;
+double elapsedTime(){
+	double currentFrameTime = glutGet(GLUT_ELAPSED_TIME);
+	double dt = (currentFrameTime - lastFrameTime)/1000.0;
+	lastFrameTime = currentFrameTime;
+	return dt;
+}
+
 /**
  * Main loop function.
  */
+double cumulativeTime = 0;
 void display() {
+	double dt = elapsedTime();
+	cumulativeTime += dt;
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	int currentTime = glutGet(GLUT_ELAPSED_TIME);
-	int deltaTime = currentTime - startTime;
-	lag += deltaTime;
-	startTime = currentTime;
-	if (lag > MS_FRAME) {
-		scene.rotateLight(0.01f * speed * deltaTime, glm::vec3(0.05f, 0.0f, 0.0f));
+	if(cumulativeTime > timeStep){
+		scene.rotateLight(speed * cumulativeTime, glm::vec3(0.05f, 0.0f, 0.0f));
 		currentSunHeight = scene.getLight().getDiffusePosition().y;
 		if (lastSunHeight < 0 and currentSunHeight >= 0) {
 			dayTick += 0.5f;
@@ -244,7 +248,7 @@ void display() {
 			}
 			dayTick = 0.0f;
 		}
-		lag -= MS_FRAME;
+		cumulativeTime -= timeStep;
 	}
 
 	objectShader.use();
@@ -363,7 +367,7 @@ int main(int argc, char* argv[]) {
 	scene = Scene(0.1, light);
 	initResources();
 
-	startTime = glutGet(GLUT_ELAPSED_TIME);
+	lastFrameTime = glutGet(GLUT_ELAPSED_TIME);
 	glutMainLoop();
 
 	return EXIT_SUCCESS;
