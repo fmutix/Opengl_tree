@@ -15,6 +15,7 @@ public:
 	Camera(glm::vec3 position, glm::vec3 direction, float cameraSpeed = 0.1);
 
 	void updateView();
+	void move(glm::vec2 direction);
 	void rotate(float angle, glm::vec3 rotationAxis);
 	void moveForwardBackward(float value);
 	void moveLeftRight(float value);
