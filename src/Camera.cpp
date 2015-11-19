@@ -25,14 +25,15 @@ void Camera::updateView(){
 
 void Camera::move(glm::vec2 direction){
 	if(direction.x || direction.y){
+		float yPosition = position_.y;
 		direction = glm::normalize(direction);
 		float dz = direction.x;
 		float dx = direction.y;
-
 		// forward / backward
 		position_ += speed_ * dx * direction_;
 		// left / right
 		position_ += speed_ * dz * glm::normalize( glm::cross(direction_, glm::vec3(0,1,0)) );
+		position_.y = yPosition;
 	}
 }
 
