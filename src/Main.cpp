@@ -327,12 +327,13 @@ int main(int argc, char* argv[]) {
 	initLibraries(argc, argv);
 
 	light = Light(
-		"res/obj/cube.ctm",
+		"res/obj/sphere.ctm",
 		glm::vec3(0.5f, 0.5f, 0.5f),
 		1.0f,
 		glm::vec3(1.0f, 1.0f, 1.0f),
 		glm::vec3(1.0f, 1.0f, 1.0f)
 	);
+	light.setScale(0.2);
 	skybox = Skybox(glm::vec3(0.0));
 	scene = Scene(0.1, light);
 	initResources();
