@@ -14,9 +14,29 @@ Camera::Camera(
 	initForward_ = forward;
 }
 
+Camera::Camera(glm::vec3 position, glm::vec3 direction, float cameraSpeed):
+	position_(position),
+	direction_(direction),
+	speed_(cameraSpeed),
+	viewMatrix_(
+		glm::lookAt(
+			position,
+			direction,
+			glm::vec3(0,1,0)
+		)
+	)
+{}
+
+void Camera::updateView(){
+	viewMatrix_ = glm::lookAt(
+		position_,
+		direction_,
+		glm::vec3(0,1,0)
+	);
+}
+
 void Camera::rotate(float angle, glm::vec3 rotationAxis) {
 	position_ = glm::rotate(position_, angle, rotationAxis);
-	up_ = glm::normalize(glm::rotate(up_, angle, rotationAxis));
 	forward_ = glm::normalize(glm::rotate(forward_, angle, rotationAxis));
 }
 
@@ -51,10 +71,7 @@ void Camera::uniformPosition(Shader& shader) {
 }
 
 glm::mat4 Camera::getViewMatrix() {
-	return glm::lookAt(
-		position_,
-		position_ + forward_,
-		up_
-	);
+	updateView();
+	return viewMatrix_;
 }
 

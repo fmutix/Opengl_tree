@@ -12,6 +12,9 @@ public:
 		const glm::vec3& forward
 	);
 
+	Camera(glm::vec3 position, glm::vec3 direction, float cameraSpeed = 0.1);
+
+	void updateView();
 	void rotate(float angle, glm::vec3 rotationAxis);
 	void moveForwardBackward(float value);
 	void moveLeftRight(float value);
@@ -32,6 +35,11 @@ private:
 	glm::vec3 initForward_;
 
 	glm::vec3 right_;
+
+
+	glm::vec3 direction_;
+	float speed_;
+	glm::mat4 viewMatrix_;
 };
 
 #endif // OBJECT3D_HPP
