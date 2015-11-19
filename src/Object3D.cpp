@@ -55,6 +55,7 @@ void Object3D::readMesh(std::string filename) {
 			v.z = vertices[i+2];
 			vertices_.push_back(v);
 		}
+
 		for(unsigned int i = 0; i < 3 * triCount; i+=3){
 			indices_.push_back(indices[i]);
 			indices_.push_back(indices[i+1]);
