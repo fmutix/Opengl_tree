@@ -25,7 +25,7 @@ public:
 	void rotateLight(float angle, glm::vec3 axis);
 
 	void add(Object3D& obj);
-	void displayObjects(Shader& shader);
+	void displayObjects(Shader& shader, int season);
 	void displayLight();
 
 	Light getLight();
@@ -36,9 +36,10 @@ private:
 	glm::vec3 lightColor_;
 	glm::vec3 objectColor_;
 	Object3D appleMesh_;
+	Object3D leafMesh_;
 	Object3D treeMesh_;
-	std::vector<Object3D> objects_;
-	std::vector<Particle> particles_;
+	std::vector<Particle> apples_;
+	std::vector<Particle> leaves_;
 };
 
 #endif // SCENE_HPP

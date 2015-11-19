@@ -3,7 +3,8 @@
 #include "Scene.hpp"
 #include "Utils.hpp"
 
-const int NB_PARTICLE = 20;
+const int NB_APPLE = 20;
+const int NB_LEAF = 50;
 
 Scene::Scene() {}
 
@@ -25,6 +26,11 @@ void Scene::initMeshes() {
 		glm::vec3(1.0f, 0.0f, 0.0f),
 		glm::vec3(1.0f, 0.0f, 0.0f)
 	);
+	leafMesh_ = Object3D(
+		"res/obj/apple.ctm",
+		glm::vec3(1.0f, 0.0f, 0.0f),
+		glm::vec3(0.0f, 1.0f, 0.0f)
+	);
 	treeMesh_ = Object3D(
 		"res/obj/tree.ctm",
 		glm::vec3(0.0f, 0.0f, 0.0f),
@@ -34,14 +40,24 @@ void Scene::initMeshes() {
 }
 
 void Scene::initParticles() {
-	for (int i = 0; i < NB_PARTICLE; i++) {
+	for (int i = 0; i < NB_APPLE; i++) {
 		glm::vec3 position(
-			Utils::randBounded(-2, 2),
+			Utils::randBounded(-1, 1),
 			Utils::randBounded(0.5, 1.0),
-			Utils::randBounded(-2, 2)
+			Utils::randBounded(-1, 1)
 		);
-		float fade = Utils::randBounded(0.00001f, 0.0001f);
-		particles_.push_back(Particle(0.1f, 1.0f, fade, position));
+		float fade = Utils::randBounded(0.001f, 0.01f);
+		apples_.push_back(Particle(0.05f, 1.0f, fade, position));
+	}
+
+	for (int i = 0; i < NB_LEAF; i++) {
+		glm::vec3 position(
+			Utils::randBounded(-1, 1),
+			Utils::randBounded(0.5, 1.0),
+			Utils::randBounded(-1, 1)
+		);
+		float fade = Utils::randBounded(0.001f, 0.01f);
+		leaves_.push_back(Particle(0.05f, 1.0f, fade, position));
 	}
 }
 
@@ -62,17 +78,13 @@ void Scene::rotateLight(float angle, glm::vec3 axis) {
 	light_.rotate(angle, axis);
 }
 
-void Scene::add(Object3D& obj) {
-	objects_.push_back(obj);
-}
-
-void Scene::displayObjects(Shader& shader) {
+void Scene::displayObjects(Shader& shader, int season) {
 	shader.setUniform("objectColor", treeMesh_.getColor());
 	shader.setUniform("objectPos", treeMesh_.getPosition());
 	shader.setUniform("objectScale", treeMesh_.getScale());
 	shader.setUniform("objectHasTex", (GLuint)treeMesh_.hasTexture());
 	treeMesh_.display();
-	for (Particle& p : particles_) {
+	for (Particle& p : apples_) {
 		p.process();
 		if (p.getAlive()) {
 			shader.setUniform("objectColor", appleMesh_.getColor());
@@ -81,7 +93,20 @@ void Scene::displayObjects(Shader& shader) {
 			shader.setUniform("objectHasTex", (GLuint)appleMesh_.hasTexture());
 			appleMesh_.display();
 		}
-		else {
+		else if (season == 3) {
+			p.live();
+		}
+	}
+	for (Particle& p : leaves_) {
+		p.process();
+		if (p.getAlive()) {
+			shader.setUniform("objectColor", leafMesh_.getColor());
+			shader.setUniform("objectPos", p.getPosition());
+			shader.setUniform("objectScale", p.getAgeMax() - p.getAge());
+			shader.setUniform("objectHasTex", (GLuint)leafMesh_.hasTexture());
+			appleMesh_.display();
+		}
+		else if (season	== 1){
 			p.live();
 		}
 	}

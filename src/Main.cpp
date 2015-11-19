@@ -19,7 +19,7 @@ const float SPEED_STEP = 0.1;
 
 int startTime;
 int lag = 0;
-float speed = 1;
+float speed = 0.5;
 
 int season = 0; // 0: winter, 1: spring, 2: summer, 3: fall
 int seasonTime = 100;
@@ -227,7 +227,7 @@ void display() {
 			season = (season + 1) % 4;
 			seasonTimer = 0;
 		}
-		scene.rotateLight(0.01f * speed * deltaTime, glm::vec3(0.05f, 0.0f, 0.0f));
+//		scene.rotateLight(0.01f * speed * deltaTime, glm::vec3(0.05f, 0.0f, 0.0f));
 		lag -= MS_FRAME;
 	}
 
@@ -237,7 +237,7 @@ void display() {
 	camera.uniformViewMatrix(objectShader);
 	camera.uniformPosition(objectShader);
 	scene.uniformObjects(objectShader);
-	scene.displayObjects(objectShader);
+	scene.displayObjects(objectShader, season);
 
 	skyboxShader.use();
 	updateWorldMatrix(skyboxShader);
@@ -357,7 +357,7 @@ int main(int argc, char* argv[]) {
 		glm::vec3(1.0f, 1.0f, 1.0f)
 	);
 	light.setScale(0.2);
-	skybox = Skybox(glm::vec3(0.0));
+	skybox = Skybox(glm::vec3(0.0f, 4.0f, 0.0f));
 	scene = Scene(0.1, light);
 	initResources();
 

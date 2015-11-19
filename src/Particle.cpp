@@ -2,7 +2,7 @@
 #include "Utils.hpp"
 
 Particle::Particle() {
-	alive_ = true;
+	alive_ = false;
 	ageMax_ = 1.0f;
 	age_ = 1.0f;
 	idle_ = 1.0f;
@@ -13,7 +13,7 @@ Particle::Particle() {
 }
 
 Particle::Particle(float age, float idle, float fade, glm::vec3 position) {
-	alive_ = true;
+	alive_ = false;
 	ageMax_ = age;
 	age_ = age;
 	idle_ = idle;

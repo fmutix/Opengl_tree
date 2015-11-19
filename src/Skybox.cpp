@@ -13,7 +13,7 @@ Skybox::Skybox(glm::vec3 position) {
 	cubeTextures_.push_back("res/textures/right.jpg");
 	cubeTextures_.push_back("res/textures/left.jpg");
 	cubeTextures_.push_back("res/textures/top.jpg");
-	cubeTextures_.push_back("res/textures/bottom.jpg");
+	cubeTextures_.push_back("res/textures/grass.jpg");
 	cubeTextures_.push_back("res/textures/back.jpg");
 	cubeTextures_.push_back("res/textures/front.jpg");
 	init("res/obj/cube.obj");
