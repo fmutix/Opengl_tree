@@ -2,6 +2,7 @@
 
 #include "Scene.hpp"
 #include "Utils.hpp"
+#include "Ground.hpp"
 
 const int NB_APPLE = 20;
 const int NB_LEAF = 50;
@@ -37,6 +38,7 @@ void Scene::initMeshes() {
 		glm::vec3(0.44f, 0.27f, 0.14f)
 	);
 	treeMesh_.setScale(0.2f);
+	groundMesh_ = Ground();
 }
 
 void Scene::initParticles() {
@@ -122,6 +124,14 @@ void Scene::displayObjects(Shader& shader, int season) {
 			p.live();
 		}
 	}
+	shader.setUniform("objectColor", groundMesh_.getColor());
+	shader.setUniform("objectPos", groundMesh_.getPosition());
+	shader.setUniform("objectScale", groundMesh_.getScale());
+	shader.setUniform("objectHasTex", (GLuint)groundMesh_.hasTexture());
+	glm::mat4 flat;
+	flat = glm::scale(flat, glm::vec3(10,0.01,10));
+	shader.setUniform("world", flat);
+	groundMesh_.display();
 }
 
 void Scene::displayLight() {

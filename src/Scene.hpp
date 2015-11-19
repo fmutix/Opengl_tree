@@ -40,6 +40,7 @@ private:
 	Object3D appleMesh_;
 	Object3D leafMesh_;
 	Object3D treeMesh_;
+	Object3D groundMesh_;
 	std::vector<Particle> apples_;
 	std::vector<Particle> leaves_;
 };
