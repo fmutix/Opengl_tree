@@ -16,7 +16,7 @@ public:
 	Scene();
 	Scene(Light light);
 	Scene(float ambient, Light light);
-	void initApple();
+	void initMeshes();
 	void initParticles();
 
 	void uniformObjects(Shader& shader);
@@ -34,6 +34,7 @@ private:
 	glm::vec3 lightColor_;
 	glm::vec3 objectColor_;
 	Object3D appleMesh_;
+	Object3D treeMesh_;
 	std::vector<Object3D> objects_;
 	std::vector<Particle> particles_;
 };

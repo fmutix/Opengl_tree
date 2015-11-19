@@ -9,22 +9,28 @@ Scene::Scene() {}
 
 Scene::Scene(Light light) : light_(light) {
 	ambient_ = 0.1;
-	initApple();
+	initMeshes();
 	initParticles();
 }
 
 Scene::Scene(float ambient, Light light) : light_(light) {
 	ambient_ = ambient;
-	initApple();
+	initMeshes();
 	initParticles();
 }
 
-void Scene::initApple() {
+void Scene::initMeshes() {
 	appleMesh_ = Object3D(
 		"res/obj/apple.ctm",
 		glm::vec3(1.0f, 0.0f, 0.0f),
 		glm::vec3(1.0f, 0.0f, 0.0f)
 	);
+	treeMesh_ = Object3D(
+		"res/obj/tree.ctm",
+		glm::vec3(0.0f, 0.0f, 0.0f),
+		glm::vec3(0.44f, 0.27f, 0.14f)
+	);
+	treeMesh_.setScale(0.2f);
 }
 
 void Scene::initParticles() {
@@ -34,8 +40,8 @@ void Scene::initParticles() {
 			Utils::randBounded(0.5, 1.0),
 			Utils::randBounded(-2, 2)
 		);
-		float fade = Utils::randBounded(0.0001f, 0.001f);
-		particles_.push_back(Particle(0.2f, 1.0f, fade, position));
+		float fade = Utils::randBounded(0.00001f, 0.0001f);
+		particles_.push_back(Particle(0.1f, 1.0f, fade, position));
 	}
 }
 
@@ -61,6 +67,11 @@ void Scene::add(Object3D& obj) {
 }
 
 void Scene::displayObjects(Shader& shader) {
+	shader.setUniform("objectColor", treeMesh_.getColor());
+	shader.setUniform("objectPos", treeMesh_.getPosition());
+	shader.setUniform("objectScale", treeMesh_.getScale());
+	shader.setUniform("objectHasTex", (GLuint)treeMesh_.hasTexture());
+	treeMesh_.display();
 	for (Particle& p : particles_) {
 		p.process();
 		if (p.getAlive()) {
