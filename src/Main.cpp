@@ -105,7 +105,7 @@ void mousedrag(int x, int y) {
 
 	float vx = (float) dx / screen.getWidth();
 	float vy = (float) dy / screen.getHeight();
-	camera.rotate(vx, vy);
+	camera.rotate(0.05, glm::vec3(vy,-vx,0));
 
 	glutPostRedisplay();
 }
@@ -218,7 +218,7 @@ void display() {
 	lag += deltaTime;
 	startTime = currentTime;
 	if (lag > MS_FRAME) {
-		scene.rotateLight(0.01f * speed * deltaTime, glm::vec3(0.05f, 0.0f, 0.0f));
+//		scene.rotateLight(0.01f * speed * deltaTime, glm::vec3(0.05f, 0.0f, 0.0f));
 		lag -= MS_FRAME;
 	}
 

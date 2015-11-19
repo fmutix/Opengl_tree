@@ -12,7 +12,6 @@ public:
 		const glm::vec3& forward
 	);
 
-	glm::vec3 rotate(float vx, float vy);
 	void rotate(float angle, glm::vec3 rotationAxis);
 	void moveForwardBackward(float value);
 	void moveLeftRight(float value);

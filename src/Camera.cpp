@@ -14,17 +14,6 @@ Camera::Camera(
 	initForward_ = forward;
 }
 
-glm::vec3 Camera::rotate(float vx, float vy) {
-	float angle = 4.0f * (fabs(vx) + fabs(vy));
-	glm::vec3 directionToMoveIn = (vx) +
-								  (-up_ * vy);
-	glm::vec3 rotationAxis = glm::cross(directionToMoveIn, forward_);
-
-	rotate(angle, rotationAxis);
-
-	return rotationAxis;
-}
-
 void Camera::rotate(float angle, glm::vec3 rotationAxis) {
 	position_ = glm::rotate(position_, angle, rotationAxis);
 	up_ = glm::normalize(glm::rotate(up_, angle, rotationAxis));
