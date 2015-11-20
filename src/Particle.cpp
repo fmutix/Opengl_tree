@@ -22,7 +22,7 @@ Particle::Particle(float age, float idle, float fade, glm::vec3 position) {
 	idleMax_ = idle;
 	fade_ = fade;
 	position_ = position;
-	direction_= glm::vec3(0.0f, -0.005f, 0.0f);
+	direction_= glm::vec3(0.0f, -0.01f, 0.0f);
 }
 
 void Particle::process() {

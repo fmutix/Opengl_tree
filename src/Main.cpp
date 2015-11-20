@@ -229,7 +229,7 @@ void display() {
 	cumulativeTime += dt;
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	if(cumulativeTime > timeStep){
-		scene.rotateLight(speed * cumulativeTime, glm::vec3(0.05f, 0.0f, 0.0f));
+		scene.rotateLight(speed * dt, glm::vec3(0.05f, 0.0f, 0.0f));
 		currentSunHeight = scene.getLight().getDiffusePosition().y;
 		if (lastSunHeight < 0 and currentSunHeight >= 0) {
 			dayTick += 0.5f;
@@ -240,10 +240,10 @@ void display() {
 		lastSunHeight = currentSunHeight;
 		if (dayTick == seasonTime) {
 			season = (season + 1) % 4;
-			if (season == 1) {
+			if (season == 2) {
 				scene.applesReady();
 			}
-			else if (season == 3) {
+			else if (season == 1) {
 				scene.leavesReady();
 			}
 			dayTick = 0.0f;
@@ -355,14 +355,14 @@ int main(int argc, char* argv[]) {
 	initLibraries(argc, argv);
 
 	light = Light(
-		"res/obj/apple.ctm",
-		glm::vec3(0.0f, 1.5f, 0.0f),
+		"res/obj/sphere.ctm",
+		glm::vec3(0.0f, 2.0f, 0.0f),
 		1.0f,
 		glm::vec3(1.0f, 1.0f, 1.0f),
 		glm::vec3(1.0f, 1.0f, 1.0f)
 	);
 	lastSunHeight = 1.5f;
-	light.setScale(0.2);
+	light.setScale(0.1);
 	skybox = Skybox(glm::vec3(0.0f, 4.0f, 0.0f));
 	scene = Scene(0.1, light);
 	initResources();

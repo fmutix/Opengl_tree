@@ -1,11 +1,12 @@
 #include <glm/gtx/rotate_vector.hpp>
+#include <cmath>
 
 #include "Scene.hpp"
 #include "Utils.hpp"
 #include "Ground.hpp"
 
-const int NB_APPLE = 20;
-const int NB_LEAF = 128;
+const int NB_APPLE = 16;
+const int NB_LEAF = 256;
 
 Scene::Scene() {}
 
@@ -49,7 +50,7 @@ void Scene::initParticles() {
 			Utils::randBounded(-1.45231, 1.7167)
 		);
 		float fade = Utils::randBounded(0.007f, 0.01f);
-		apples_.push_back(Particle(0.05f, 8.0f, fade, position));
+		apples_.push_back(Particle(0.05f, 4.0f, fade, position));
 	}
 
 	for (int i = 0; i < NB_LEAF; i++) {
@@ -58,8 +59,8 @@ void Scene::initParticles() {
 			Utils::randBounded(4.0, 7.49918),
 			Utils::randBounded(-1.45231, 1.7167)
 		);
-		float fade = Utils::randBounded(0.007f, 0.01f);
-		leaves_.push_back(Particle(0.05f, 18.0f, fade, position));
+		float fade = Utils::randBounded(0.01f, 0.02f);
+		leaves_.push_back(Particle(0.05f, 9.0f, fade, position));
 	}
 }
 

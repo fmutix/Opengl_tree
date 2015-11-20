@@ -10,6 +10,6 @@ uniform samplerCube tex;
 out vec4 color;
 
 void main (void) {
-	float tmp = -1.0 + dayNight / maxDayNight;
+	float tmp = -0.8 + dayNight / maxDayNight;
 	color = texture(tex, objPos) + vec4(tmp, tmp, tmp, 0.0f);
 }
