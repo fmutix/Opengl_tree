@@ -24,7 +24,7 @@ float lastSunHeight;
 float currentSunHeight;
 
 int season = 0; // 0: winter, 1: spring, 2: summer, 3: fall
-int seasonTime = 3;
+int seasonTime = 2;
 
 glm::mat4 world(1.0f);
 

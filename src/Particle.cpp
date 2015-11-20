@@ -31,10 +31,16 @@ void Particle::process() {
 			decreaseAge();
 		}
 		else if (state_ == 1) {
+			decreaseIdle();
+		}
+		else if (state_ == 2) {
 			fall();
 		}
-		else {
+		else if (state_ == 3) {
 			decreaseIdle();
+		}
+		else if (state_ == 4) {
+			kill();
 		}
 	}
 }
@@ -43,7 +49,8 @@ void Particle::fall() {
 	position_ += direction_;
 	if (position_.y <= 0) {
 		position_.y = 0.0f;
-		state_ = 2;
+		idle_ = idleMax_;
+		state_++;
 	}
 }
 
@@ -77,7 +84,7 @@ void Particle::decreaseIdle() {
 	idle_ -= fade_;
 	if (idle_ <= 0) {
 		idle_ = 0.0f;
-		kill();
+		state_++;
 	}
 }
 
