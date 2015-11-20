@@ -5,7 +5,7 @@
 #include "Ground.hpp"
 
 const int NB_APPLE = 20;
-const int NB_LEAF = 50;
+const int NB_LEAF = 128;
 
 Scene::Scene() {}
 
@@ -48,8 +48,8 @@ void Scene::initParticles() {
 			Utils::randBounded(4.0, 7.49918),
 			Utils::randBounded(-1.45231, 1.7167)
 		);
-		float fade = Utils::randBounded(0.07f, 0.1f);
-		apples_.push_back(Particle(0.05f, 50.0f, fade, position));
+		float fade = Utils::randBounded(0.007f, 0.01f);
+		apples_.push_back(Particle(0.05f, 8.0f, fade, position));
 	}
 
 	for (int i = 0; i < NB_LEAF; i++) {
@@ -58,8 +58,8 @@ void Scene::initParticles() {
 			Utils::randBounded(4.0, 7.49918),
 			Utils::randBounded(-1.45231, 1.7167)
 		);
-		float fade = Utils::randBounded(0.07f, 0.1f);
-		leaves_.push_back(Particle(0.05f, 240.0f, fade, position));
+		float fade = Utils::randBounded(0.007f, 0.01f);
+		leaves_.push_back(Particle(0.05f, 18.0f, fade, position));
 	}
 }
 
@@ -107,7 +107,7 @@ void Scene::displayObjects(Shader& shader, int season) {
 			shader.setUniform("objectHasTex", (GLuint)appleMesh_.hasTexture());
 			appleMesh_.display();
 		}
-		else if (season == 3 and p.getReady()) {
+		else if (season == 2 and p.getReady()) {
 			p.live();
 		}
 	}
@@ -120,7 +120,7 @@ void Scene::displayObjects(Shader& shader, int season) {
 			shader.setUniform("objectHasTex", (GLuint)leafMesh_.hasTexture());
 			appleMesh_.display();
 		}
-		else if (season	== 2 and p.getReady()){
+		else if (season	== 1 and p.getReady()){
 			p.live();
 		}
 	}

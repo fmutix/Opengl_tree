@@ -49,7 +49,7 @@ void Particle::fall() {
 	position_ += direction_;
 	if (position_.y <= 0) {
 		position_.y = 0.0f;
-		idle_ = idleMax_;
+		idle_ = idleMax_/4;
 		state_++;
 	}
 }
